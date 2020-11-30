@@ -1,0 +1,10 @@
+.book-image {
+  height: 100px;
+  width: 100px;
+}
+
+.book-title{
+  max-width:200px;
+  margin: auto;
+  display:inline-block;
+}
