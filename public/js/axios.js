@@ -28,3 +28,8 @@ function editBook(id) {
       console.error(err);
     });
 }
+
+function addBook() {
+  const title = document.getElementsByName("titleInput")[0].value;
+  console.log(title);
+}

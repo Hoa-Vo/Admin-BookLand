@@ -1,70 +1,61 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
+<script src="js/axios.js"></script>
 <div>
-    <br/> <br/> <br/> <br/> <br/>
-    <form method= "POST" class="form-horizontal">
+    <form class="form-horizontal">
         <fieldset>
-            
             <!-- Form Name -->
             <legend class="text-center">Tạo mới một quyển sách</legend>
-
             <!-- Text input-->
             <div class="form-group">
-            <label class="col-md-4 control-label" for="textinput">Name</label>  
-            <div class="col-md-4">
-            <input id="textinput" name="titleInput" placeholder="Type name here" class="form-control input-md" required="" type="text">
-                
-            </div>
-            </div>
-
-            <!-- Text input-->
-            <div class="form-group">
-            <label class="col-md-4 control-label" for="textinput">Base Price</label>  
-            <div class="col-md-4">
-            <input id="textinput" name="basePriceInput" placeholder="Type price here" class="form-control input-md" required="" type="text">
-                
-            </div>
-            </div>
-
-            <!-- Text input-->
-            <div class="form-group">
-            <label class="col-md-4 control-label" for="textinput">Author</label>  
-            <div class="col-md-4">
-            <input id="textinput" name="authorInput" placeholder="Type author here" class="form-control input-md" required="" type="text">
-                
-            </div>
+                <label class="col-md-4 control-label" for="textinput">Name</label>
+                <div class="col-md-4">
+                    <input id="textinput" name="titleInput" placeholder="Type name here" class="form-control input-md"
+                        required="" type="text">
+                </div>
             </div>
             <!-- Text input-->
             <div class="form-group">
-            <label class="col-md-4 control-label" for="textinput">Publisher</label>  
-            <div class="col-md-4">
-            <input id="textinput" name="publisherInput" placeholder="Type pushisher here" class="form-control input-md" required="" type="text">
-                
-            </div>
+                <label class="col-md-4 control-label" for="textinput">Base Price</label>
+                <div class="col-md-4">
+                    <input id="textinput" name="basePriceInput" placeholder="Type price here"
+                        class="form-control input-md" required="" type="text">
+                </div>
             </div>
             <!-- Text input-->
             <div class="form-group">
-            <label class="col-md-4 control-label" for="textinput">Image Link</label>  
-            <div class="col-md-4">
-            <input id="textinput" name="imageLinkInput" placeholder="Type image link here" class="form-control input-md" required="" type="text">
-                
+                <label class="col-md-4 control-label" for="textinput">Author</label>
+                <div class="col-md-4">
+                    <input id="textinput" name="authorInput" placeholder="Type author here"
+                        class="form-control input-md" required="" type="text">
+                </div>
             </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">Publisher</label>
+                <div class="col-md-4">
+                    <input id="textinput" name="publisherInput" placeholder="Type pushisher here"
+                        class="form-control input-md" required="" type="text">
+                </div>
             </div>
-
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">Image Link</label>
+                <div class="col-md-4">
+                    <input id="textinput" name="imageLinkInput" placeholder="Type image link here"
+                        class="form-control input-md" required="" type="text">
+                </div>
+            </div>
             <!-- Button (Double) -->
             <div class="form-group">
-            <label class="col-md-4 control-label" for="btnCancel">Save Marker</label>
-            <div class="col-md-8">
-                {{!-- <button id="btnCancel" name="btnCancel" class="btn btn-primary">Cancel</button> --}}
-                <button id="btnSave" name="btnSave" class="btn btn-success">
-                    <a href="/bookslist"></a>
-                    Save</button>
+                <label class="col-md-4 control-label" for="btnCancel">Save Marker</label>
+                <div class="col-md-8">
+                    <button onclick="addBook()" id="btnSave" name="btnSave" class="btn btn-success">
+                        <!-- <a href="/bookslist"></a> -->
+                        Save</button>
+                </div>
             </div>
-            </div>
-
         </fieldset>
     </form>
-
 </div>
