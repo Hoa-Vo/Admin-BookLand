@@ -3,15 +3,15 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
+const bodyParser = require("body-parser");
 const app = express();
 
 const indexRouter = require("./routes/index");
 const loginRouter = require("./routes/login");
 const registerRouter = require("./routes/register");
 const booksListRouter = require("./routes/bookslist");
-const createNewBookRouter=require("./routes/createNewBook");
-const editBookRouter=require("./routes/editBook");
+const createNewBookRouter = require("./routes/createNewBook");
+const editBookRouter = require("./routes/editBook");
 
 require("./database/db");
 // view engine setup
@@ -22,7 +22,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/bookslist", express.static(path.join(__dirname, "public")));
 app.use("/edit", express.static(path.join(__dirname, "public")));
 app.use("/bookslist/delete", express.static(path.join(__dirname, "public")));
-
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -52,10 +51,10 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-const port= 5000;
+const port = 5000;
 
-app.listen(port, ()=>{
-  console.log('Example app listening at http://localhost:{port}');
-})
+app.listen(port, () => {
+  console.log("Example app listening at http://localhost:{port}");
+});
 
 module.exports = app;

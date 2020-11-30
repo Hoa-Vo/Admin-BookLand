@@ -1828,6 +1828,9 @@ ul.cart-list > li.total > .btn:hover {
   display: inline-block;
   vertical-align: middle;
 }
+.navbar-brand {
+  height: auto !important;
+}
 .product-item-filter li .nav-link {
   border: none;
   border-radius: 0px;
