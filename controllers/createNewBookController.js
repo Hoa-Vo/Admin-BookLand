@@ -1,5 +1,8 @@
-const booksModel = require("../models/booksModel");
-var bodyParser = require("body-parser");
+const booksModel = require("../models/booksModel.js");
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage({}) });
+const fs = require("fs");
+const { v4: uuidv4 } = require("uuid");
 
 exports.renderCreateNewBookPage = (req, res, next) => {
   console.log("reach before render");
@@ -7,15 +10,18 @@ exports.renderCreateNewBookPage = (req, res, next) => {
 };
 
 exports.addBook = async (req, res, next) => {
-  console.log(req.body);
+  let imageBuffer = new Buffer.from(req.file.buffer, "base64");
+  let imageLink = uuidv4().toString();
+  fs.writeFile(`./public/images/booksImage/${imageLink}.jpg`, imageBuffer, function (err) {
+    if (err) res.status(204).end();
+  });
   let bookObj = {
     title: req.body.titleInput,
     basePrice: req.body.basePriceInput,
     author: req.body.authorInput,
     publisher: req.body.publisherInput,
-    image: "none",
+    image_link: imageLink,
   };
-
   let result = await booksModel.addBook(bookObj);
   console.log(`result is${result}`);
   if (result === true) {

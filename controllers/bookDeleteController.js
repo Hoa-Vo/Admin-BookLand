@@ -1,4 +1,4 @@
-const booksModel = require("../models/booksModel");
+const booksModel = require("../models/booksModel.js");
 //const querystring = require('querystring');
 
 exports.deleteBook = async (req, res, next) => {

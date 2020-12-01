@@ -1,4 +1,4 @@
-const booksModel = require("../models/booksModel");
+const booksModel = require("../models/booksModel.js");
 
 exports.listing = async (req, res, next) => {
   // Get books from model

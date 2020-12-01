@@ -1,4 +1,4 @@
-const booksModel = require("../models/booksModel");
+const booksModel = require("../models/booksModel.js");
 
 exports.renderEditSpecifiedPage = async (req, res, next) => {
   // Get books from model
