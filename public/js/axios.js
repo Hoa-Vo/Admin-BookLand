@@ -1,6 +1,5 @@
 function delBook(id) {
   let ID = id.split("-");
-  console.log(ID[0]);
   axios
     .delete("/bookslist", {
       params: {
@@ -8,7 +7,11 @@ function delBook(id) {
       },
     })
     .then(res => {
-      console.log(res.data.text);
+      if (res.status === 202) {
+        document.getElementById(ID[0]).remove();
+      } else {
+        alert("Can't delete this book!!!");
+      }
     })
     .catch(err => {
       console.error(err);
@@ -17,12 +20,12 @@ function delBook(id) {
 function editBook(id) {
   let ID = id.split("-");
   axios
-    .post("/bookslist", {
+    .patch("/bookslist", {
       id: ID[0],
       type: "edit",
     })
     .then(res => {
-      console.log(res.data.text);
+      console.log(res.d);
     })
     .catch(err => {
       console.error(err);
@@ -33,3 +36,9 @@ function addBook() {
   const title = document.getElementsByName("titleInput")[0].value;
   console.log(title);
 }
+
+var Handlebars = require("handlebars");
+
+Handlebars.registerHelper("inc", function (value, options) {
+  return parseInt(value) + 1;
+});

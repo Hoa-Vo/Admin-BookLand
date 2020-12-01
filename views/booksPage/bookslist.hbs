@@ -31,12 +31,11 @@
 					<h1>Bảng thông tin sách</h1>
 				</div>
 				<div class="col col-xs-6 text-center">
-						<a href="./createNew">
-							<button type="submit" class="btn btn-md btn-primary btn-create">
+					<a href="./createNew">
+						<button type="submit" class="btn btn-md btn-primary btn-create">
 							Create New
 						</button>
-						</a>
-				
+					</a>
 				</div>
 			</div>
 			<br />
@@ -44,6 +43,7 @@
 				<table id="mytable" class="table table-bordred table-striped ">
 					<thead>
 						<th><input type="checkbox" id="checkall" /></th>
+						<th>STT</th>
 						<th>ID</th>
 						<th>Image</th>
 						<th>Title</th>
@@ -55,8 +55,9 @@
 					</thead>
 					<tbody>
 						{{#each books}}
-							<tr>
+							<tr id="{{_id}}">
 								<td><input type="checkbox" class="checkthis" /></td>
+								<td>{{@index}}</td>
 								<td>{{image_link}}</td>
 								<td><img class="book-image" src="images/booksImage/{{image_link}}.jpg" /> </td>
 								<td>
