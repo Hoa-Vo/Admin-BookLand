@@ -10,12 +10,11 @@ const editSpecifiedBookController = require("../controllers/editSpecifiedBookCon
 router.get("/", booksListController.listing);
 
 router.get("/createNew", createNewBookController.renderCreateNewBookPage);
-router.get("/edit/:id", editSpecifiedBookController.renderEditSpecifiedPage); 
 
-router.get("/:id", booksDetailController.listing);
 router.delete("/", bookDeleteController.deleteBook);
 
 router.post("/createNew", createNewBookController.addBook);
 router.post("/edit", editSpecifiedBookController.editBook);
-
+router.get("/edit/:id", editSpecifiedBookController.renderEditSpecifiedPage);
+router.get("/:id", booksDetailController.listing);
 module.exports = router;

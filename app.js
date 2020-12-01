@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/bookslist", express.static(path.join(__dirname, "public")));
 app.use("/bookslist/createNew", express.static(path.join(__dirname, "public")));
 
-app.use("/edit", express.static(path.join(__dirname, "public")));
+app.use("/bookslist/edit/:id", express.static(path.join(__dirname, "public")));
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -30,12 +30,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 //app.use(bodyParser.urlencoded({ extended: true }));
 
-
 app.use("/", indexRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/bookslist", booksListRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

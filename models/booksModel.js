@@ -4,8 +4,6 @@ const { ObjectID } = require("mongodb");
 exports.list = async () => {
   const bookCollection = await db().collection("Books");
   const books = await bookCollection.find({}).toArray();
-
-  console.log(books);
   return books;
 };
 exports.get = async id => {
@@ -41,23 +39,29 @@ exports.deleteBook = async id => {
   return success;
 };
 
-exports.editBook = async bookObj => 
-{
+exports.editBook = async bookObj => {
+  console.log("book model ne");
+  console.log(bookObj);
   const bookCollection = await db().collection("Books");
   let success = true;
-  let existsBook = await bookCollection.findOne({_id: ObjectID(bookObj.id)});
+  let existsBook = await bookCollection.findOne({ _id: ObjectID(bookObj.id) });
 
   if (existsBook === null || existsBook === undefined) {
     console.log(`Can't find book with ID ${id}`);
     success = false;
   } else {
-      bookCollection.updateOne(
-        {_id: ObjectID(bookObj.id) },
-        {
-          $set: {"title": bookObj.titleInput, "basePrice": bookObj.basePriceInput, "author": bookObj.authorInput, "publisher": bookObj.publisherInput}
-        }
-      )
-      success = true;
+    bookCollection.updateOne(
+      { _id: ObjectID(bookObj.id) },
+      {
+        $set: {
+          title: bookObj.title,
+          basePrice: bookObj.basePrice,
+          author: bookObj.author,
+          publisher: bookObj.publisher,
+        },
+      }
+    );
+    success = true;
   }
   return success;
-}
+};
