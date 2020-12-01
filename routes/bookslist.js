@@ -12,9 +12,6 @@ router.get("/createNew", createNewBookController.renderCreateNewBookPage);
 
 router.get("/:id", booksDetailController.listing);
 router.delete("/", bookDeleteController.deleteBook);
-router.patch("/", (req, res, next) => {
-  console.log(req.body.id);
-  console.log(req.body.type);
-});
-router.post("/", (res, req, next) => {});
+
+router.post("/createNew", createNewBookController.addBook);
 module.exports = router;
