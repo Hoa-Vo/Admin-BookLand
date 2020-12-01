@@ -34,11 +34,29 @@ function editBook(id) {
 
 function addBook() {
   const title = document.getElementsByName("titleInput")[0].value;
-  console.log(title);
+  const basePrice = document.getElementsByName("basePriceInput")[0].value;
+  const author = document.getElementsByName("authorInput")[0].value;
+  const publisher = document.getElementsByName("publisherInput")[0].value;
+  const image = document.getElementsByName("image")[0].files[0];
+  let reader = new FileReader();
+  reader.onloadend = function () {
+    document.getElementById("preview").src = reader.result;
+  };
+  if (image) {
+    reader.readAsDataURL(image);
+  } else {
+  }
+  axios
+    .put("/bookslist/createNew", {
+      title: title,
+      basePrice: basePrice,
+      author: author,
+      publisher: publisher,
+    })
+    .then(res => {
+      console.log(res.d);
+    })
+    .catch(err => {
+      console.error(err);
+    });
 }
-
-var Handlebars = require("handlebars");
-
-Handlebars.registerHelper("inc", function (value, options) {
-  return parseInt(value) + 1;
-});

@@ -70,11 +70,13 @@
 								<td>{{publisher}}</td>
 								<td>
 									<p data-placement="top" data-toggle="tooltip" title="Edit">
-										<button onclick="editBook(this.id)" id="{{_id}}-edit"
-											class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
-											data-target="#edit">
-											<span class="glyphicon glyphicon-pencil"></span>
-										</button>
+										<a href="/bookslist/edit">
+											<button onclick="editBook(this.id)" id="{{_id}}-edit"
+												class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
+												data-target="#edit">
+												<span class="glyphicon glyphicon-pencil"></span>
+											</button>
+										</a>
 									</p>
 								</td>
 								<td>

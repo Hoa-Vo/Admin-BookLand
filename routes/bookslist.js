@@ -16,4 +16,5 @@ router.patch("/", (req, res, next) => {
   console.log(req.body.id);
   console.log(req.body.type);
 });
+router.post("/", (res, req, next) => {});
 module.exports = router;

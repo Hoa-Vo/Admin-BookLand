@@ -1,67 +1,59 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
 <div>
-    <br/> <br/> <br/> <br/> <br/>
-    <form method= "POST" class="form-horizontal" >
+    <br /> <br /> <br /> <br /> <br />
+    <form>
         <fieldset>
-            
             <!-- Form Name -->
             <legend class="text-center">Chỉnh sửa nội dụng quyển sách</legend>
-
             <!-- Textarea-->
             <div class="form-group">
-            <label class="col-md-4 control-label" for="textarea">Name</label>  
-            <div class="col-md-4">
-                <textarea class="form-control" id="textarea" name="titleInput"  placeholder="{{title}}"></textarea>
-                
+                <label class="col-md-4 control-label" for="textarea">Name</label>
+                <div class="col-md-4">
+                    <textarea class="form-control" id="textarea" name="titleInput" placeholder="{{title}}"></textarea>
+                </div>
             </div>
-            </div>
-
             <!-- Textarea-->
             <div class="form-group">
-            <label class="col-md-4 control-label" for="textarea">Base Price</label>  
-            <div class="col-md-4">
-                <textarea class="form-control" id="textarea" name="basePriceInput"  placeholder="{{basePrice}}"></textarea>
-                
-            </div>
-            </div>
-
-            <!-- Textarea -->
-            <div class="form-group">
-            <label class="col-md-4 control-label" for="textarea">Author</label>
-            <div class="col-md-4">                     
-                <textarea class="form-control" id="textarea" name="authorInput"  placeholder="{{author}}"></textarea>
-            </div>
+                <label class="col-md-4 control-label" for="textarea">Base Price</label>
+                <div class="col-md-4">
+                    <textarea class="form-control" id="textarea" name="basePriceInput"
+                        placeholder="{{basePrice}}"></textarea>
+                </div>
             </div>
             <!-- Textarea -->
             <div class="form-group">
-            <label class="col-md-4 control-label" for="textarea">Publisher</label>
-            <div class="col-md-4">                     
-                <textarea class="form-control" id="textarea" name="publisherInput"  placeholder="{{publisher}}"></textarea>
-            </div>
+                <label class="col-md-4 control-label" for="textarea">Author</label>
+                <div class="col-md-4">
+                    <textarea class="form-control" id="textarea" name="authorInput" placeholder="{{author}}"></textarea>
+                </div>
             </div>
             <!-- Textarea -->
             <div class="form-group">
-            <label class="col-md-4 control-label" for="textarea">Image Link</label>
-            <div class="col-md-4">                     
-                <textarea class="form-control" id="textarea" name="imageLinkInput" placeholder="Type link here"></textarea>
+                <label class="col-md-4 control-label" for="textarea">Publisher</label>
+                <div class="col-md-4">
+                    <textarea class="form-control" id="textarea" name="publisherInput"
+                        placeholder="{{publisher}}"></textarea>
+                </div>
             </div>
+            <!-- Textarea -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textarea">Image Link</label>
+                <div class="col-md-4">
+                    <textarea class="form-control" id="textarea" name="imageLinkInput"
+                        placeholder="Type link here"></textarea>
+                </div>
             </div>
-
             <!-- Button (Double) -->
             <div class="form-group">
-            <label class="col-md-4 control-label" for="btnCancel">Save Marker</label>
-            <div class="col-md-8">
-                {{!-- <button id="btnCancel" name="btnCancel" class="btn btn-primary">Cancel</button> --}}
-                <button id="btnSave" name="btnSave" class="btn btn-success">
-                    <a href="/bookslist"></a>
-                    Save</button>
+                <label class="col-md-4 control-label" for="btnCancel">Save Marker</label>
+                <div class="col-md-8">
+                    <button id="btnSave" name="btnSave" class="btn btn-success">
+                        <a href="/bookslist/edit"></a>
+                        Save</button>
+                </div>
             </div>
-            </div>
-
         </fieldset>
     </form>
-
 </div>

@@ -1,7 +1,6 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-
 <div>
-    <form class="form-horizontal">
+    <form method="POST" action="./" class="form-horizontal">
         <fieldset>
             <!-- Form Name -->
             <legend class="text-center">Tạo mới một quyển sách</legend>
@@ -39,24 +38,21 @@
             </div>
             <!-- Text input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="textinput">Image Link</label>
+                <label class="col-md-4 control-label" for="textinput">Image</label>
                 <div class="col-md-4">
-                    <input id="textinput" name="imageLinkInput" placeholder="Type image link here"
-                        class="form-control input-md" required="" type="text">
+                    <input type="file" name="image" class="input-group input-file" />
                 </div>
             </div>
             <!-- Button (Double) -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="btnCancel">Save Marker</label>
-                <div class="col-md-8">
-                    <button onclick="addBook()" id="btnSave" name="btnSave" class="btn btn-success">
-                        <!-- <a href="/bookslist"></a> -->
-                        Save</button>
-                </div>
+            <label class="col-md-4 control-label" for="btnCancel">Save Marker</label>
+            <div class="col-md-8">
+                <button type="submit" id="btnSave" name="btnSave" class="btn btn-success">
+                    Save</button>
             </div>
-        </fieldset>
-    </form>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="js/axios.js"></script>
+</div>
+</fieldset>
+</form>
+<img id="preview" style="width: 300px; height: 300px" />
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="js/axios.js"></script>
 </div>
