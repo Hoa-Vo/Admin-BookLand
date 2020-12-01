@@ -10,7 +10,7 @@ const indexRouter = require("./routes/index");
 const loginRouter = require("./routes/login");
 const registerRouter = require("./routes/register");
 const booksListRouter = require("./routes/bookslist");
-const createNewBookRouter = require("./routes/createNewBook");
+//const createNewBookRouter = require("./routes/createNewBook");
 const editBookRouter = require("./routes/editBook");
 
 require("./database/db");
@@ -20,8 +20,9 @@ app.set("view engine", "hbs");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/bookslist", express.static(path.join(__dirname, "public")));
+app.use("/bookslist/createNew", express.static(path.join(__dirname, "public")));
+
 app.use("/edit", express.static(path.join(__dirname, "public")));
-app.use("/bookslist/delete", express.static(path.join(__dirname, "public")));
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -32,7 +33,7 @@ app.use("/", indexRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/bookslist", booksListRouter);
-app.use("/createNew", createNewBookRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
