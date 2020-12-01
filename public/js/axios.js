@@ -1,21 +1,26 @@
 function delBook(id) {
   let ID = id.split("-");
-  axios
-    .delete("/bookslist", {
-      params: {
-        id: ID[0],
-      },
-    })
-    .then(res => {
-      if (res.status === 202) {
-        document.getElementById(ID[0]).remove();
-      } else {
-        alert("Can't delete this book!!!");
-      }
-    })
-    .catch(err => {
-      console.error(err);
-    });
+  let answer = window.confirm("Delete this book?");
+  if (answer) {
+    axios
+      .delete("/bookslist", {
+        params: {
+          id: ID[0],
+        },
+      })
+      .then(res => {
+        if (res.status === 202) {
+          document.getElementById(ID[0]).remove();
+        } else {
+          alert("Can't delete this book!!!");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  } else {
+    //some code
+  }
 }
 function editBook(id) {
   let ID = id.split("-");
