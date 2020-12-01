@@ -5,5 +5,3 @@ const loginController = require("../controllers/loginController");
 login.get("/", loginController.renderLoginPage);
 
 module.exports = login;
-
-setTimeout(() => {});

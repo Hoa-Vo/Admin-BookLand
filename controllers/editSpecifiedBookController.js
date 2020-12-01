@@ -31,9 +31,7 @@ exports.editBook = async (req, res, next) => {
   console.log(`Edit result is ${result}`);
   if (result === true) {
     // Get books from model
-    const books = await booksModel.list();
-    // Pass data to view to display list of books
-    res.render("booksPage/bookslist", { books });
+    res.status(202).redirect(301, "/bookslist");
   } else {
     res.status(204).end();
   }
