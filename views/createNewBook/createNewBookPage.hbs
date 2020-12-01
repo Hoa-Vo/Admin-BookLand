@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="css/adminDetail.css" />
+<script src="js/axios.js"></script>
 <div>
     <form method="POST" action="./" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
@@ -40,7 +41,9 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">Image</label>
                 <div class="col-md-4">
-                    <input type="file" name="book-image" class="input-group input-file" />
+                    <input type="file" onchange="previewImage(event)" name="book-image"
+                        class="input-group input-file" />
+                    <img style="width: 100px; height:100px" id="preview" />
                 </div>
             </div>
             <!-- Button (Double) -->
@@ -53,5 +56,4 @@
 </fieldset>
 </form>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="js/axios.js"></script>
 </div>

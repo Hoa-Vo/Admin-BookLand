@@ -36,32 +36,11 @@ function editBook(id) {
       console.error(err);
     });
 }
-
-function addBook() {
-  const title = document.getElementsByName("titleInput")[0].value;
-  const basePrice = document.getElementsByName("basePriceInput")[0].value;
-  const author = document.getElementsByName("authorInput")[0].value;
-  const publisher = document.getElementsByName("publisherInput")[0].value;
-  const image = document.getElementsByName("image")[0].files[0];
+const previewImage = function (event) {
   let reader = new FileReader();
-  reader.onloadend = function () {
-    document.getElementById("preview").src = reader.result;
+  reader.onload = function () {
+    let output = document.getElementById("preview");
+    output.src = reader.result;
   };
-  if (image) {
-    reader.readAsDataURL(image);
-  } else {
-  }
-  axios
-    .put("/bookslist/createNew", {
-      title: title,
-      basePrice: basePrice,
-      author: author,
-      publisher: publisher,
-    })
-    .then(res => {
-      console.log(res.d);
-    })
-    .catch(err => {
-      console.error(err);
-    });
-}
+  reader.readAsDataURL(event.target.files[0]);
+};
