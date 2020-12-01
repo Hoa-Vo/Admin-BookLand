@@ -16,5 +16,6 @@ router.get("/:id", booksDetailController.listing);
 router.delete("/", bookDeleteController.deleteBook);
 
 router.post("/createNew", createNewBookController.addBook);
+router.post("/edit", editSpecifiedBookController.editBook);
 
 module.exports = router;
