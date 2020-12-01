@@ -40,3 +40,24 @@ exports.deleteBook = async id => {
   }
   return success;
 };
+
+exports.editBook = async bookObj => 
+{
+  const bookCollection = await db().collection("Books");
+  let success = true;
+  let existsBook = await bookCollection.findOne({_id: ObjectID(bookObj.id)});
+
+  if (existsBook === null || existsBook === undefined) {
+    console.log(`Can't find book with ID ${id}`);
+    success = false;
+  } else {
+      bookCollection.updateOne(
+        {_id: ObjectID(bookObj.id) },
+        {
+          $set: {"title": bookObj.titleInput, "basePrice": bookObj.basePriceInput, "author": bookObj.authorInput, "publisher": bookObj.publisherInput}
+        }
+      )
+      success = true;
+  }
+  return success;
+}
