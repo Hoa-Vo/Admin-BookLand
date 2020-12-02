@@ -22,17 +22,14 @@
 	});
 </script>
 <div class="container">
-	<br /><br /><br /><br /><br /><br />
 	<div class="row">
 		<div class="col-md-12">
 			<div class="row">
 				<div class="col col-xs-6">
 					<h1>Bảng thông tin sách</h1>
-				</div>
-				<div class="col col-xs-6 text-center">
 					<a href="./createNew">
 						<button type="submit" class="btn btn-md btn-primary btn-create">
-							Create New
+							Thêm sách mới
 						</button>
 					</a>
 				</div>
@@ -43,13 +40,13 @@
 					<thead>
 						<th><input type="checkbox" id="checkall" /></th>
 						<th>STT</th>
-						<th>Image</th>
-						<th>Title</th>
-						<th>Base Price</th>
-						<th>Author</th>
-						<th>Publisher</th>
-						<th>Edit</th>
-						<th>Delete</th>
+						<th>Hình</th>
+						<th>Tên</th>
+						<th>Giá</th>
+						<th>Tác giả</th>
+						<th>Nhà xuất bản</th>
+						<th>Sửa</th>
+						<th>Xóa</th>
 					</thead>
 					<tbody>
 						{{#each books}}
@@ -58,19 +55,24 @@
 								<td>{{@index}}</td>
 								<td><img class="book-image" src="images/booksImage/{{image_link}}.jpg" /> </td>
 								<td>
-									<div class="book-title">
+									<div class="book-info">
 										{{title}}
 									</div>
 								</td>
-								<td>{{basePrice}} VND</td>
-								<td>{{author}}</td>
-								<td>{{publisher}}</td>
+								<td>
+									<div class="book-info">{{basePrice}} VND</div>
+								</td>
+								<td>
+									<div class="book-info">{{author}}</div>
+								</td>
+								<td>
+									<div class="book-info">{{publisher}}</div>
+								</td>
 								<td>
 									<p data-placement="top" data-toggle="tooltip" title="Edit">
 										<a href="/bookslist/edit/{{_id}}">
-											<button onclick="editBook(this.id)" id="{{_id}}-edit"
-												class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
-												data-target="#edit">
+											<button id="{{_id}}-edit" class="btn btn-primary btn-xs" data-title="Edit"
+												data-toggle="modal" data-target="#edit">
 												<span class="glyphicon glyphicon-pencil"></span>
 											</button>
 										</a>

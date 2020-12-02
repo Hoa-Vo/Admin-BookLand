@@ -9,11 +9,8 @@ const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage({}) });
 // Get booklist page
 router.get("/", booksListController.listing);
-
-router.get("/createNew", createNewBookController.renderCreateNewBookPage);
-
 router.delete("/", bookDeleteController.deleteBook);
-
+router.get("/createNew", createNewBookController.renderCreateNewBookPage);
 router.post("/createNew", upload.single("book-image"), createNewBookController.addBook);
 router.post("/edit", editSpecifiedBookController.editBook);
 router.get("/edit/:id", editSpecifiedBookController.renderEditSpecifiedPage);
