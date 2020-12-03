@@ -4,7 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
-
+const cors = require('cors');
 const app = express();
 
 const indexRouter = require("./routes/index");
@@ -22,13 +22,12 @@ app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/bookslist", express.static(path.join(__dirname, "public")));
 app.use("/bookslist/createNew", express.static(path.join(__dirname, "public")));
-
 app.use("/bookslist/edit/:id", express.static(path.join(__dirname, "public")));
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cors());
 //app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", indexRouter);
@@ -50,12 +49,6 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render("error");
-});
-
-const port = 5000;
-
-app.listen(port, () => {
-  console.log("Example app listening at http://localhost:{port}");
 });
 
 module.exports = app;

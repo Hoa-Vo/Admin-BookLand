@@ -1,6 +1,10 @@
 const { db } = require("../database/db");
 const { ObjectID } = require("mongodb");
-
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage({}) });
+const fs = require("fs");
+const { v4: uuidv4 } = require("uuid");
+require("dotenv/config");
 exports.list = async () => {
   const bookCollection = await db().collection("Books");
   const books = await bookCollection.find({}).toArray();
@@ -65,3 +69,12 @@ exports.editBook = async bookObj => {
   }
   return success;
 };
+exports.saveImage = async file => {
+  const oldPath = file.bookImage.path;
+  const imageName = file.bookImage.path.split('\\').pop();
+  const imageType = file.bookImage.name.split('.').pop();
+  const imagePath = `./public/images/booksImage/${imageName}.${imageType}`;
+  var rawData = fs.readFileSync(oldPath);
+  fs.writeFileSync(imagePath, rawData);
+  return imageName;
+}

@@ -1,1 +1,2 @@
 -To use mongodb uri, create a .env file and add DBI_URI=db connect link
+-To add image link for use in .env add IMG_URI_USER=image link rememer add '\' in the end of link

@@ -1,6 +1,6 @@
 const booksModel = require("../models/booksModel.js");
 
-exports.listing = async (req, res, next) => {
+exports.get = async (req, res, next) => {
   // Get books from model
   const book = await booksModel.get(req.params.id);
   // Pass data to view to book detail
