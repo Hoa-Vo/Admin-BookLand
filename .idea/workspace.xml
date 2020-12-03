@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2bdc3153-5da6-4d31-bba3-1e54821f1441" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/booksDetailController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/booksDetailController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/createNewBookController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/createNewBookController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/booksModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/booksModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/booksImage/cd56d768-5150-4a6e-96e6-c807238ec2f6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/booksImage/ea065391-51b2-4e12-9e34-35267e87df3c.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/axios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/bookslist.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/bookslist.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/booksPage/bookslist.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/booksPage/bookslist.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/createNewBook/createNewBookPage.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/createNewBook/createNewBookPage.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +59,7 @@
       <workItem from="1606896105539" duration="1258000" />
       <workItem from="1606899494972" duration="89000" />
       <workItem from="1606915190173" duration="23012000" />
-      <workItem from="1606967209040" duration="2252000" />
+      <workItem from="1606967209040" duration="2924000" />
     </task>
     <servers />
   </component>

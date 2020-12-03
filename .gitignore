@@ -115,5 +115,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 #pass DB
+.vscode/
+.idea/
 pass/
 .env
