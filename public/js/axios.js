@@ -62,15 +62,17 @@ form.addEventListener("submit", e => {
   formData.append("basePrice", basePrice);
   formData.append("author", author);
   formData.append("publisher", publisher);
-  run("https://admin-bookland.herokuapp.com/bookslist/createNew")
+  run("http://localhost:5500/bookslist/createNew")
     .then(res => {
       return res.data.imageName;
     })
     .then(imageName => {
       formData.append("imageName", imageName);
-      run("https://bookland-hcmus.herokuapp.com/api/admin-send-image").then(res => {
+      run("http://localhost:3000/api/admin-send-image").then(res => {
         console.log(res);
-        alert("Them thanh cong!!");
       });
+    })
+    .then(() => {
+      alert("Thêm thành công!!");
     });
 });
