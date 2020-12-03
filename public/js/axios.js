@@ -62,7 +62,7 @@ form.addEventListener("submit", e => {
   formData.append("basePrice", basePrice);
   formData.append("author", author);
   formData.append("publisher", publisher);
-  run("http://localhost:5500/bookslist/createNew")
+  run("https://admin-bookland.herokuapp.com/bookslist/createNew")
     .then(res => {
       return res.data.imageName;
     })
