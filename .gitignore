@@ -118,4 +118,5 @@ dist
 vscode/
 .idea/
 pass/
+node_modules/
 .env 
