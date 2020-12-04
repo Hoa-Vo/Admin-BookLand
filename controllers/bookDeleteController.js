@@ -6,7 +6,6 @@ exports.deleteBook = async (req, res, next) => {
   const idToDelete = req.query.id;
   console.log(`Received key-value ${idToDelete}`);
   let result = await booksModel.deleteBook(idToDelete);
-
   if (result === true) {
     res.status(202).end();
   } else {

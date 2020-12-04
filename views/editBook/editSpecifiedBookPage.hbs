@@ -1,19 +1,21 @@
 <link rel="stylesheet" href="css/adminDetail.css" />
 <div>
-    <form method="POST" action="/bookslist/edit" class="form-horizontal">
+    <form method="POST" action="/bookslist/edit" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
             <!-- Form Name -->
             <legend class="text-center">Chỉnh sửa quyển sách</legend>
             <!-- Text input-->
             <div class="form-group">
                 <div style="display: none;" class="col-md-4">
-                    <input id="textinput" name="idInput" value="{{id}}" class="form-control input-md" type="text">
+                    <input id="textinput" name="idInput" value="{{id}}" class="form-control input-md" type="text"
+                        required="">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">Name</label>
                 <div class="col-md-4">
-                    <input id="textinput" name="titleInput" value="{{title}}" class="form-control input-md" type="text">
+                    <input id="textinput" name="titleInput" value="{{title}}" class="form-control input-md" type="text"
+                        required="">
                 </div>
             </div>
             <!-- Text input-->
@@ -21,7 +23,7 @@
                 <label class="col-md-4 control-label" for="textinput">Base Price</label>
                 <div class="col-md-4">
                     <input id="textinput" name="basePriceInput" value="{{basePrice}}" class="form-control input-md"
-                        type="text">
+                        type="number" required="">
                 </div>
             </div>
             <!-- Text input-->
@@ -29,7 +31,7 @@
                 <label class="col-md-4 control-label" for="textinput">Author</label>
                 <div class="col-md-4">
                     <input id="textinput" name="authorInput" value="{{author}}" class="form-control input-md"
-                        type="text">
+                        type="text" required="">
                 </div>
             </div>
             <!-- Text input-->
@@ -37,10 +39,17 @@
                 <label class="col-md-4 control-label" for="textinput">Publisher</label>
                 <div class="col-md-4">
                     <input id="textinput" name="publisherInput" value="{{publisher}}" class="form-control input-md"
-                        type="text">
+                        type="text" required="">
                 </div>
             </div>
             <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">Hình</label>
+                <div class="col-md-4">
+                    <input type="file" onchange="previewImage(event)" name="bookImage" class="input-group input-file" />
+                    <img style="width: 100px; height:100px" id="preview" />
+                </div>
+            </div>
             <!-- Button (Double) -->
             <label class="col-md-4 control-label" for="btnCancel">Save Marker</label>
             <div class="col-md-8">

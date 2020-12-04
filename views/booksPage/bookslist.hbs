@@ -45,7 +45,7 @@
 						<th>Giá</th>
 						<th>Tác giả</th>
 						<th>Nhà xuất bản</th>
-                        <th>Xem</th>
+						<th>Xem</th>
 						<th>Sửa</th>
 						<th>Xóa</th>
 					</thead>
@@ -54,7 +54,7 @@
 							<tr id="{{_id}}">
 								<td><input type="checkbox" class="checkthis" /></td>
 								<td>{{@index}}</td>
-								<td><img class="book-image" src="images/booksImage/{{image_link}}.jpg" /> </td>
+								<td><img class="book-image" src="images/booksImage/{{image_link}}" /> </td>
 								<td>
 									<div class="book-info">
 										{{title}}
@@ -69,16 +69,15 @@
 								<td>
 									<div class="book-info">{{publisher}}</div>
 								</td>
-                                <td>
-                                    <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                        <a  href="./{{_id}}">
-                                        <button
-                                                class="btn btn-success btn-xs" data-title="See" data-toggle="modal">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        </a>
-                                    </p>
-                                </td>
+								<td>
+									<p data-placement="top" data-toggle="tooltip" title="Delete">
+										<a href="./{{_id}}">
+											<button class="btn btn-success btn-xs" data-title="See" data-toggle="modal">
+												<i class="fas fa-eye"></i>
+											</button>
+										</a>
+									</p>
+								</td>
 								<td>
 									<p data-placement="top" data-toggle="tooltip" title="Edit">
 										<a href="/bookslist/edit/{{_id}}">

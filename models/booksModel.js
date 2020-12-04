@@ -32,11 +32,13 @@ exports.deleteBook = async id => {
   const bookCollection = await db().collection("Books");
   let success = false;
   let existsBook = await bookCollection.findOne({ _id: ObjectID(id) });
-
   if (existsBook === null || existsBook === undefined) {
     console.log(`Can't find book with ID ${id}`);
     success = false;
   } else {
+    const imagePath = `./public/images/booksImage/${existsBook.image_link}`;
+    fs.unlinkSync(imagePath);
+    fs.unlinkSync(`${process.env.USER_IMAGE_URI}${existsBook.image_link}`);
     await bookCollection.deleteOne({ _id: ObjectID(id) });
     success = true;
   }
@@ -44,12 +46,12 @@ exports.deleteBook = async id => {
 };
 
 exports.editBook = async bookObj => {
-  console.log("book model ne");
-  console.log(bookObj);
   const bookCollection = await db().collection("Books");
   let success = true;
   let existsBook = await bookCollection.findOne({ _id: ObjectID(bookObj.id) });
-
+  const imagePath = `./public/images/booksImage/${existsBook.image_link}`;
+  fs.unlinkSync(imagePath);
+  fs.unlinkSync(`${process.env.USER_IMAGE_URI}${existsBook.image_link}`);
   if (existsBook === null || existsBook === undefined) {
     console.log(`Can't find book with ID ${id}`);
     success = false;
@@ -62,6 +64,7 @@ exports.editBook = async bookObj => {
           basePrice: bookObj.basePrice,
           author: bookObj.author,
           publisher: bookObj.publisher,
+          image_link: bookObj.image,
         },
       }
     );
@@ -71,10 +74,12 @@ exports.editBook = async bookObj => {
 };
 exports.saveImage = async file => {
   const oldPath = file.bookImage.path;
-  const imageName = file.bookImage.path.split('\\').pop();
-  const imageType = file.bookImage.name.split('.').pop();
+  const imageName = file.bookImage.path.split("\\").pop();
+  const imageType = file.bookImage.name.split(".").pop();
   const imagePath = `./public/images/booksImage/${imageName}.${imageType}`;
+  const userImagePath = `${process.env.USER_IMAGE_URI}${imageName}.${imageType}`;
   var rawData = fs.readFileSync(oldPath);
   fs.writeFileSync(imagePath, rawData);
-  return imageName;
-}
+  fs.writeFileSync(userImagePath, rawData);
+  return `${imageName}.${imageType}`;
+};

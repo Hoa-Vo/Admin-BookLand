@@ -62,17 +62,11 @@ form.addEventListener("submit", e => {
   formData.append("basePrice", basePrice);
   formData.append("author", author);
   formData.append("publisher", publisher);
-  run("/bookslist/createNew")
-    .then(res => {
-      return res.data.imageName;
-    })
-    .then(imageName => {
-      formData.append("imageName", imageName);
-      run("http://localhost:3000/api/admin-send-image").then(res => {
-        console.log(res);
-      });
-    })
-    .then(() => {
-      alert("Thêm thành công!!");
-    });
+  run("/bookslist/createNew").then(res => {
+    if (res.status === 202) {
+      alert("Thêm thành công");
+    } else {
+      alert("Lỗi khi thêm");
+    }
+  });
 });

@@ -1,5 +1,5 @@
 const booksModel = require("../models/booksModel.js");
-const formidable=require("formidable");
+const formidable = require("formidable");
 exports.renderCreateNewBookPage = (req, res, next) => {
   console.log("reach before render");
   res.render("./createNewBook/createNewBookPage");
@@ -8,31 +8,32 @@ exports.renderCreateNewBookPage = (req, res, next) => {
 exports.addBook = async (req, res, next) => {
   const form = formidable.IncomingForm();
   await form.parse(req, function (err, fields, files) {
-    if(err){
+    if (err || files.bookImage.type !== "image/jpeg") {
       res.send(204);
-    }
-    else {
-      booksModel.saveImage(files).then(imageName=>{
-        let bookObj = {
-          title: fields.title,
-          basePrice: fields.basePrice,
-          author: fields.author,
-          publisher: fields.publisher,
-          image_link: imageName
-        };
-        return bookObj
-      }).then(bookObj=>{
-        booksModel.addBook(bookObj).then(result=>{
-          if (result === true) {
-            res.status(202).send({
-              imageName: bookObj.image_link
-            })
-          } else {
-            res.send(204).end();
-          }
+    } else {
+      booksModel
+        .saveImage(files)
+        .then(imageName => {
+          let bookObj = {
+            title: fields.title,
+            basePrice: fields.basePrice,
+            author: fields.author,
+            publisher: fields.publisher,
+            image_link: imageName,
+          };
+          return bookObj;
+        })
+        .then(bookObj => {
+          booksModel.addBook(bookObj).then(result => {
+            if (result === true) {
+              res.status(202).send({
+                imageName: bookObj.image_link,
+              });
+            } else {
+              res.send(204).end();
+            }
+          });
         });
-      })
     }
-  })
-
+  });
 };
