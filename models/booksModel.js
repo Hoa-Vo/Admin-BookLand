@@ -38,7 +38,9 @@ exports.deleteBook = async id => {
   } else {
     const imagePath = `./public/images/booksImage/${existsBook.image_link}`;
     fs.unlinkSync(imagePath);
-    fs.unlinkSync(`${process.env.USER_IMAGE_URI}${existsBook.image_link}`);
+    try {
+      fs.unlinkSync(`${process.env.USER_IMAGE_URI}${existsBook.image_link}`);
+    } catch (err) {}
     await bookCollection.deleteOne({ _id: ObjectID(id) });
     success = true;
   }
@@ -49,9 +51,13 @@ exports.editBook = async bookObj => {
   const bookCollection = await db().collection("Books");
   let success = true;
   let existsBook = await bookCollection.findOne({ _id: ObjectID(bookObj.id) });
-  const imagePath = `./public/images/booksImage/${existsBook.image_link}`;
-  fs.unlinkSync(imagePath);
-  fs.unlinkSync(`${process.env.USER_IMAGE_URI}${existsBook.image_link}`);
+  try {
+    const imagePath = `./public/images/booksImage/${existsBook.image_link}`;
+    fs.unlinkSync(imagePath);
+    try {
+      fs.unlinkSync(`${process.env.USER_IMAGE_URI}${existsBook.image_link}`);
+    } catch (err) {}
+  } catch (err) {}
   if (existsBook === null || existsBook === undefined) {
     console.log(`Can't find book with ID ${id}`);
     success = false;
@@ -80,6 +86,8 @@ exports.saveImage = async file => {
   const userImagePath = `${process.env.USER_IMAGE_URI}${imageName}.${imageType}`;
   var rawData = fs.readFileSync(oldPath);
   fs.writeFileSync(imagePath, rawData);
-  fs.writeFileSync(userImagePath, rawData);
+  try {
+    fs.writeFileSync(userImagePath, rawData);
+  } catch (err) {}
   return `${imageName}.${imageType}`;
 };

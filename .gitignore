@@ -116,6 +116,6 @@ dist
 .pnp.*
 #pass DB
 vscode/
-./idea
+.idea/
 pass/
-.env
+.env 
