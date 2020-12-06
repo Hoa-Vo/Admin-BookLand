@@ -8,6 +8,7 @@ const editSpecifiedBookController = require("../controllers/editSpecifiedBookCon
 router.get("/", booksListController.listing);
 router.delete("/", bookDeleteController.deleteBook);
 router.get("/createNew", createNewBookController.renderCreateNewBookPage);
+router.get("/page",booksListController.paging);
 router.post("/createNew", createNewBookController.addBook);
 router.post("/edit", editSpecifiedBookController.editBook);
 router.get("/edit/:id", editSpecifiedBookController.renderEditSpecifiedPage);
