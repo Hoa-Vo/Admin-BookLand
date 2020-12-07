@@ -5,17 +5,46 @@ const upload = multer({ storage: multer.memoryStorage({}) });
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 require("dotenv/config");
+
+// list all
 exports.list = async () => {
   const bookCollection = await db().collection("Books");
   const books = await bookCollection.find({}).toArray();
   return books;
 };
+
+// get by specific ID
 exports.get = async id => {
   const bookCollection = await db().collection("Books");
   const book = await bookCollection.findOne({ _id: ObjectID(id) });
   return book;
 };
 
+exports.getCategoryNameById = async id => 
+{
+  const categoriesCollection = await db().collection("Category");
+  const result = categoriesCollection.findOne({_id: ObjectID(id)});
+  return result; 
+}
+
+exports.getAllCategory  = async() => 
+{
+  const categoriesCollection = await db().collection("Category");
+  const allCategories = await categoriesCollection.find({}).toArray(); 
+  return allCategories; 
+}
+
+
+// list by categoryID 
+exports.listByCategory = async categoryId => 
+{
+  const bookCollection = await db().collection("Books");
+  const books = await bookCollection.find({category_id: categoryId}).toArray(); 
+ 
+  return books; 
+}
+
+// add Book to database. addBook(bookObject)
 exports.addBook = async bookObj => {
   const bookCollection = await db().collection("Books");
   let success = true;
@@ -27,7 +56,7 @@ exports.addBook = async bookObj => {
 
   return success;
 };
-
+// Delete book with specific Id
 exports.deleteBook = async id => {
   const bookCollection = await db().collection("Books");
   let success = false;
@@ -46,7 +75,7 @@ exports.deleteBook = async id => {
   }
   return success;
 };
-
+// edit book
 exports.editBook = async bookObj => {
   const bookCollection = await db().collection("Books");
   let success = true;
@@ -78,6 +107,7 @@ exports.editBook = async bookObj => {
   }
   return success;
 };
+// Save image
 exports.saveImage = async file => {
   const oldPath = file.bookImage.path;
   const imageName = file.bookImage.path.split("\\").pop();
