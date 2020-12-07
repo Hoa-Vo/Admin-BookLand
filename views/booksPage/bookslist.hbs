@@ -4,7 +4,7 @@
 <!-- Include the above in your HEAD tag -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src=js/axios.js></script>
+<script src="js/axios.js"></script>
 <script>
 	$(document).ready(function () {
 		$("#mytable #checkall").click(function () {
@@ -32,6 +32,23 @@
 							Thêm sách mới
 						</button>
 					</a>
+				</div>
+				<div class = "col col-xs-6">
+					<h1>Filter theo loại sách</h1>
+					<div id = "dropdown-category-filter">
+						<button onclick="toogleHideAndShowDropDown()" class= "btn btn-md btn-primary btn-create">
+							Hiện tại
+						</button>
+						<div id = "filter-dropdown" class = "drop-down-content">
+							<a href="#">Khoa Học</a>
+							<a href="#">Lãng Mạn</a>
+							<a href="#">Kinh Dị</a>
+							<a href="#">Tiểu thuyết dài</a>
+							<a href="#">Lập trình</a>
+
+						</div>
+
+					</div>
 				</div>
 			</div>
 			<br />
@@ -112,4 +129,6 @@
 			</div>
 		</div>
 	</div>
+	<script src="js/dropdownFilter.js"></script>
+
 </div>
