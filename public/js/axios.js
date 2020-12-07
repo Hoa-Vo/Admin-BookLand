@@ -39,7 +39,7 @@ function editBook(id) {
 
 // function selectCategory
 // {
-//   const 
+//   cons
 // }
 
 const previewImage = function (event) {

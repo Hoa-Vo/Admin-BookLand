@@ -41,7 +41,11 @@
 						</button>
 						<div id = "filter-dropdown" class = "drop-down-content">
 							{{#each categories}}
-							<a href="?categoryID={{_id}}">{{name}}</a>
+							<form action="/bookslist/" method="GET">
+								<input type="submit" value = "{{name}}"/>
+								<input type="hidden" name="categoryID" value="{{_id}}"/>
+							</form>
+							
 							{{/each}}
 
 						</div>

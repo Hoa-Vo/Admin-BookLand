@@ -32,8 +32,8 @@ exports.getAllCategory  = async() =>
 exports.listByCategory = async categoryId => 
 {
   const bookCollection = await db().collection("BooksAlternative");
-  const books = await bookCollection.find({category_id: categoryId}); 
-
+  const books = await bookCollection.find({category_id: categoryId}).toArray(); 
+  console.log(books); 
   return books; 
 }
 
