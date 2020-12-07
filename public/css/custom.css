@@ -15,9 +15,9 @@
   word-wrap: break-word;
 }
 
-.drop-down-content
+#filter-dropdown
 {
-  display: "";
+  display: none;
   position: absolute;
   background-color: #f6f6f6;
   min-width: 230px;
