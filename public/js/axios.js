@@ -36,6 +36,12 @@ function editBook(id) {
       console.error(err);
     });
 }
+
+// function selectCategory
+// {
+//   const 
+// }
+
 const previewImage = function (event) {
   let reader = new FileReader();
   reader.onload = function () {

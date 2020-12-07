@@ -37,14 +37,12 @@
 					<h1>Filter theo loại sách</h1>
 					<div id = "dropdown-category-filter">
 						<button onclick="toogleHideAndShowDropDown()" class= "btn btn-md btn-primary btn-create">
-							Hiện tại
+							Tất cả
 						</button>
 						<div id = "filter-dropdown" class = "drop-down-content">
-							<a href="#">Khoa Học</a>
-							<a href="#">Lãng Mạn</a>
-							<a href="#">Kinh Dị</a>
-							<a href="#">Tiểu thuyết dài</a>
-							<a href="#">Lập trình</a>
+							{{#each categories}}
+							<a href="?categoryID={{_id}}">{{name}}</a>
+							{{/each}}
 
 						</div>
 

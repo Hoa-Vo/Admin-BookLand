@@ -8,27 +8,38 @@ require("dotenv/config");
 
 // list all
 exports.list = async () => {
-  const bookCollection = await db().collection("Books");
+  const bookCollection = await db().collection("BooksAlternative");
   const books = await bookCollection.find({}).toArray();
   return books;
 };
 
 // get by specific ID
 exports.get = async id => {
-  const bookCollection = await db().collection("Books");
+  const bookCollection = await db().collection("BooksAlternative");
   const book = await bookCollection.findOne({ _id: ObjectID(id) });
   return book;
 };
 
+exports.getAllCategory  = async() => 
+{
+  const categoriesCollection = await db().collection("Category");
+  const allCategories = await categoriesCollection.find({}).toArray(); 
+  return allCategories; 
+}
+
+
 // list by categoryID 
 exports.listByCategory = async categoryId => 
 {
-  // pass
+  const bookCollection = await db().collection("BooksAlternative");
+  const books = await bookCollection.find({category_id: categoryId}); 
+
+  return books; 
 }
 
 // add Book to database. addBook(bookObject)
 exports.addBook = async bookObj => {
-  const bookCollection = await db().collection("Books");
+  const bookCollection = await db().collection("BooksAlternative");
   let success = true;
   let bookAdded = await bookCollection.insertOne(bookObj);
 
@@ -40,7 +51,7 @@ exports.addBook = async bookObj => {
 };
 // Delete book with specific Id
 exports.deleteBook = async id => {
-  const bookCollection = await db().collection("Books");
+  const bookCollection = await db().collection("BooksAlternative");
   let success = false;
   let existsBook = await bookCollection.findOne({ _id: ObjectID(id) });
   if (existsBook === null || existsBook === undefined) {
@@ -59,7 +70,7 @@ exports.deleteBook = async id => {
 };
 // edit book
 exports.editBook = async bookObj => {
-  const bookCollection = await db().collection("Books");
+  const bookCollection = await db().collection("BooksAlternative");
   let success = true;
   let existsBook = await bookCollection.findOne({ _id: ObjectID(bookObj.id) });
   try {
