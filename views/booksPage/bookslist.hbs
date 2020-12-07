@@ -21,14 +21,15 @@
 				<div class="col col-xs-6">
 					<h1>Filter theo loại sách</h1>
 					<div id="dropdown-category-filter">
-						<button onclick="toogleHideAndShowDropDown()" class="btn btn-md btn-primary btn-create">
+						<button id="test" onclick="toogleHideAndShowDropDown()" class="btn btn-md btn-primary btn-create">
 							{{currentCategory}}
+                            <p style="display: none" id="category_id">{{currentCategoryId}}</p>
 						</button>
 						<div id="filter-dropdown" class="drop-down-content">
 							{{#each categories}}
 								<form action="/bookslist/" method="GET">
 									<input type="submit" value="{{name}}" />
-									<input type="hidden" name="categoryID" value="{{_id}}" />
+									<input  type="hidden" name="categoryID" value="{{_id}}" />
 								</form>
 							{{/each}}
 							<form action="/bookslist/" method="GET">
@@ -55,53 +56,7 @@
 						<th>Xóa</th>
 					</thead>
 					<tbody id="books-list">
-						<!--						{{#each books}}-->
-						<!--							<tr id="{{_id}}">-->
-						<!--								<td><input type="checkbox" class="checkthis" /></td>-->
-						<!--								<td>{{@index}}</td>-->
-						<!--								<td><img class="book-image" src="images/booksImage/{{image_link}}" /> </td>-->
-						<!--								<td>-->
-						<!--									<div class="book-info">-->
-						<!--										{{title}}-->
-						<!--									</div>-->
-						<!--								</td>-->
-						<!--								<td>-->
-						<!--									<div class="book-info">{{basePrice}} VND</div>-->
-						<!--								</td>-->
-						<!--								<td>-->
-						<!--									<div class="book-info">{{author}}</div>-->
-						<!--								</td>-->
-						<!--								<td>-->
-						<!--									<div class="book-info">{{publisher}}</div>-->
-						<!--								</td>-->
-						<!--								<td>-->
-						<!--									<p data-placement="top" data-toggle="tooltip" title="Delete">-->
-						<!--										<a href="./{{_id}}">-->
-						<!--											<button class="btn btn-success btn-xs" data-title="See" data-toggle="modal">-->
-						<!--												<i class="fas fa-eye"></i>-->
-						<!--											</button>-->
-						<!--										</a>-->
-						<!--									</p>-->
-						<!--								</td>-->
-						<!--								<td>-->
-						<!--									<p data-placement="top" data-toggle="tooltip" title="Edit">-->
-						<!--										<a href="/bookslist/edit/{{_id}}">-->
-						<!--											<button id="{{_id}}-edit" class="btn btn-primary btn-xs" data-title="Edit"-->
-						<!--												data-toggle="modal" data-target="#edit">-->
-						<!--												<span class="glyphicon glyphicon-pencil"></span>-->
-						<!--											</button>-->
-						<!--										</a>-->
-						<!--									</p>-->
-						<!--								</td>-->
-						<!--								<td>-->
-						<!--									<p data-placement="top" data-toggle="tooltip" title="Delete">-->
-						<!--										<button id="{{_id}}-del" onclick="delBook(this.id)"-->
-						<!--											class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal">-->
-						<!--											<i class="far fa-trash-alt"></i>-->
-						<!--									</p>-->
-						<!--								</td>-->
-						<!--							</tr>-->
-						<!--						{{/each}}-->
+
 					</tbody>
 				</table>
 			</div>

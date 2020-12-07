@@ -30,10 +30,10 @@ exports.listing = async (req, res, next) => {
   
   const categoriesListToShowInMenu = await booksListModel.getAllCategory(); 
   // Pass data to view to display list of books
-  res.render("booksPage/bookslist", { books: booksToShow, categories: categoriesListToShowInMenu, currentCategory:currentCategory});
+  res.render("booksPage/bookslist", {currentCategoryId: receivedCategoryID,books: booksToShow, categories: categoriesListToShowInMenu, currentCategory:currentCategory});
   //res.render("booksPage/bookslist"
 };
 exports.paging= async  (req,res,next)=>{
-  const data  = await  booksListModel.paging(req.query.page,req.query.pagelimit);
+  const data  = await  booksListModel.paging(req.query.page,req.query.pagelimit,req.query.category);
   res.send({data});
 }
