@@ -37,7 +37,7 @@
 					<h1>Filter theo loại sách</h1>
 					<div id = "dropdown-category-filter">
 						<button onclick="toogleHideAndShowDropDown()" class= "btn btn-md btn-primary btn-create">
-							Tất cả
+							{{currentCategory}}
 						</button>
 						<div id = "filter-dropdown" class = "drop-down-content">
 							{{#each categories}}
@@ -47,7 +47,11 @@
 							</form>
 							
 							{{/each}}
-
+							
+							<form action="/bookslist/" method="GET">
+								<input type="submit" value = "Tất cả sách"/>
+								<input type="hidden" name="categoryID" value="all"/>
+							</form>
 						</div>
 
 					</div>

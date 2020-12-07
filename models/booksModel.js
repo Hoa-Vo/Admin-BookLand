@@ -20,6 +20,13 @@ exports.get = async id => {
   return book;
 };
 
+exports.getCategoryNameById = async id => 
+{
+  const categoriesCollection = await db().collection("Category");
+  const result = categoriesCollection.findOne({_id: ObjectID(id)});
+  return result; 
+}
+
 exports.getAllCategory  = async() => 
 {
   const categoriesCollection = await db().collection("Category");
@@ -33,7 +40,7 @@ exports.listByCategory = async categoryId =>
 {
   const bookCollection = await db().collection("Books");
   const books = await bookCollection.find({category_id: categoryId}).toArray(); 
-  console.log(books); 
+ 
   return books; 
 }
 
