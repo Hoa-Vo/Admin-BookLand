@@ -15,8 +15,7 @@
   word-wrap: break-word;
 }
 
-#filter-dropdown
-{
+#filter-dropdown {
   display: none;
   position: absolute;
   background-color: #f6f6f6;
@@ -25,8 +24,26 @@
   z-index: 1;
 }
 
-#dropdown-category-filter
-{
+#dropdown-category-filter {
   position: relative;
   display: inline-block;
+}
+.button-bar {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+}
+.page-link {
+  color: black;
+  font-size: 18px;
+  cursor: pointer;
+  width: 50px;
+  text-align: center;
+}
+#loading {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
 }

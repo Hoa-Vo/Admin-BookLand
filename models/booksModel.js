@@ -121,3 +121,11 @@ exports.saveImage = async file => {
   } catch (err) {}
   return `${imageName}.${imageType}`;
 };
+exports.paging = async (page,pageLimit)=>{
+  const currentPage = parseInt(page);
+  const limit = parseInt(pageLimit);
+  const bookCollection = await db().collection("Books");
+  const totalBook = await  bookCollection.count();
+  const books = await bookCollection.find({}).skip(limit*currentPage-limit).limit(limit).toArray();
+  return {books,totalBook};
+}
