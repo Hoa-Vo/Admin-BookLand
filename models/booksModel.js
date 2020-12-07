@@ -8,14 +8,14 @@ require("dotenv/config");
 
 // list all
 exports.list = async () => {
-  const bookCollection = await db().collection("BooksAlternative");
+  const bookCollection = await db().collection("Books");
   const books = await bookCollection.find({}).toArray();
   return books;
 };
 
 // get by specific ID
 exports.get = async id => {
-  const bookCollection = await db().collection("BooksAlternative");
+  const bookCollection = await db().collection("Books");
   const book = await bookCollection.findOne({ _id: ObjectID(id) });
   return book;
 };
@@ -31,7 +31,7 @@ exports.getAllCategory  = async() =>
 // list by categoryID 
 exports.listByCategory = async categoryId => 
 {
-  const bookCollection = await db().collection("BooksAlternative");
+  const bookCollection = await db().collection("Books");
   const books = await bookCollection.find({category_id: categoryId}).toArray(); 
   console.log(books); 
   return books; 
@@ -39,7 +39,7 @@ exports.listByCategory = async categoryId =>
 
 // add Book to database. addBook(bookObject)
 exports.addBook = async bookObj => {
-  const bookCollection = await db().collection("BooksAlternative");
+  const bookCollection = await db().collection("Books");
   let success = true;
   let bookAdded = await bookCollection.insertOne(bookObj);
 
@@ -51,7 +51,7 @@ exports.addBook = async bookObj => {
 };
 // Delete book with specific Id
 exports.deleteBook = async id => {
-  const bookCollection = await db().collection("BooksAlternative");
+  const bookCollection = await db().collection("Books");
   let success = false;
   let existsBook = await bookCollection.findOne({ _id: ObjectID(id) });
   if (existsBook === null || existsBook === undefined) {
@@ -70,7 +70,7 @@ exports.deleteBook = async id => {
 };
 // edit book
 exports.editBook = async bookObj => {
-  const bookCollection = await db().collection("BooksAlternative");
+  const bookCollection = await db().collection("Books");
   let success = true;
   let existsBook = await bookCollection.findOne({ _id: ObjectID(bookObj.id) });
   try {
