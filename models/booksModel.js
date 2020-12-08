@@ -20,6 +20,35 @@ exports.get = async id => {
   return book;
 };
 
+exports.searchBook= async bookName=>{
+  const bookCollection = await db().collection("Books");
+  //const books = await bookCollection.find({}).toArray();
+  console.log(bookName); 
+  //await bookCollection.createIndex({title: "text"}); 
+  const books = await bookCollection.find({ $text: { $search: "\"The\""}}).toArray();
+  //const books = await bookCollection.find({$or:[{title:{'$regex':bookName}}]});
+  //await bookCollection.createIndex({title})
+  //const books=await bookCollection.find({title:"T"}).toArray();
+  if (books==null) console.log("Không tìm thấy");
+  else {
+    console.log("Tìm thấy");
+    console.log();
+  }
+  return books;
+}
+
+exports.addBook = async bookObj => {
+  const bookCollection = await db().collection("Books");
+  let success = true;
+  let bookAdded = await bookCollection.insertOne(bookObj);
+
+  if (bookAdded === null || bookAdded === undefined) {
+    success = false;
+  }
+
+  return success;
+};
+
 exports.getCategoryNameById = async id => 
 {
   const categoriesCollection = await db().collection("Category");
