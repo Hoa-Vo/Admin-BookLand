@@ -1,9 +1,8 @@
 <link rel="stylesheet" href="css/adminDetail.css" />
 <link rel="stylesheet" href="css/custom.css" />
-<link rel="stylesheet" href="css/searchBox.css"
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="css/searchBox.css" <link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!-- Include the above in your HEAD tag -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -21,27 +20,26 @@
 							Thêm sách mới
 						</button>
 					</a>
-					<form class="search" action="/bookslist/search/">
+					<form id="searchForm" class="search" action=/bookslist/search/>
 						<div class="search__wrapper">
-							
-								<input type="text" name="bookName" placeholder="Search book here" class="search__field">
-								<button type="submit" class="fa fa-search search__icon"></button>
+							<input value="{{bookName}}" type="text" name="bookName" placeholder="Search book here" class="search__field">
+							<button type="submit" class="fa fa-search search__icon"></button>
 						</div>
 					</form>
 				</div>
-				
 				<div class="col col-xs-3">
 					<h1>Filter theo loại sách</h1>
 					<div id="dropdown-category-filter">
-						<button id="test" onclick="toogleHideAndShowDropDown()" class="btn btn-md btn-primary btn-create">
+						<button id="test" onclick="toogleHideAndShowDropDown()"
+							class="btn btn-md btn-primary btn-create">
 							{{currentCategory}}
-                            <p style="display: none" id="category_id">{{currentCategoryId}}</p>
+							<p style="display: none" id="category_id">{{currentCategoryId}}</p>
 						</button>
 						<div id="filter-dropdown" class="drop-down-content">
 							{{#each categories}}
 								<form action="/bookslist" method="GET">
 									<input type="submit" value="{{name}}" />
-									<input  type="hidden" name="categoryID" value="{{_id}}" />
+									<input type="hidden" name="categoryID" value="{{_id}}" />
 								</form>
 							{{/each}}
 							<form action="/bookslist/" method="GET">
@@ -68,7 +66,6 @@
 						<th>Xóa</th>
 					</thead>
 					<tbody id="books-list">
-                        
 					</tbody>
 				</table>
 			</div>

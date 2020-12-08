@@ -11,6 +11,5 @@ exports.get=async (req,res,next)=>{
     console.log("Tìm thấy");
     console.log();
   }
-  
-    res.render("booksPage/bookslist", { books });
+  res.render("booksPage/bookslist", { books, bookName });
 };

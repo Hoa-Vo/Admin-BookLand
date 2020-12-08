@@ -23,20 +23,8 @@ exports.get = async id => {
 exports.searchBook= async bookName=>{
   const bookCollection = await db().collection("Books");
   //const books = await bookCollection.find({}).toArray();
-  console.log(bookName); 
-  //await bookCollection.createIndex({title: "text"}); 
-  //const books = await bookCollection.find({ $text: { $search: "\"The\""}}).toArray();
-  //const books = await bookCollection.find({$or:[{title:{'$regex':bookName}}]});
-  //await bookCollection.createIndex({title})
-  ///const test = `/${bookName}/`;
-  let searchString = new RegExp(bookName) ;
   const books=await bookCollection.find({ title: { $regex:bookName, $options: "i" } }).toArray();
-  //console.log(test);
   console.log(books);
-  (books).forEach(element => {
-    
-    
-  });
   if (books==null) console.log("Không tìm thấy");
   else {
     console.log("Tìm thấy");
@@ -158,16 +146,19 @@ exports.saveImage = async file => {
   } catch (err) {}
   return `${imageName}.${imageType}`;
 };
-exports.paging = async (page,pageLimit,category)=>{
+exports.paging = async (page,pageLimit,category,searchText)=>{
   const currentPage = parseInt(page);
   const limit = parseInt(pageLimit);
   const bookCollection = await db().collection("Books");
   let totalBook;
   let books;
-  console.log(category);
-  if(category!=="") {
+  if(category) {
      books = await bookCollection.find({category_id: category}).skip(limit * currentPage - limit).limit(limit).toArray();
      totalBook = books.length;
+  }
+  else if(searchText){
+   books=await bookCollection.find({ title: { $regex:searchText, $options: "i" } }).toArray();
+    totalBook = books.length;
   }
   else{
     books = await bookCollection.find({}).skip(limit * currentPage - limit).limit(limit).toArray();

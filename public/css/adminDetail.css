@@ -2323,6 +2323,7 @@ table th[class*="col-"] {
   background-color: #ebcccc;
 }
 .table-responsive {
+  height: 100vh;
   min-height: 0.01%;
   overflow-x: auto;
 }

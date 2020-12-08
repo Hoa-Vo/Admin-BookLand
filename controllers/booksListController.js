@@ -34,6 +34,6 @@ exports.listing = async (req, res, next) => {
   //res.render("booksPage/bookslist"
 };
 exports.paging= async  (req,res,next)=>{
-  const data  = await  booksListModel.paging(req.query.page,req.query.pagelimit,req.query.category);
+  const data  = await  booksListModel.paging(req.query.page,req.query.pagelimit,req.query.category,req.query.searchText);
   res.send({data});
 }
