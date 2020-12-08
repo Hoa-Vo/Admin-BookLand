@@ -21,6 +21,7 @@ app.set("view engine", "hbs");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/bookslist", express.static(path.join(__dirname, "public")));
+app.use("/bookslist/search", express.static(path.join(__dirname, "public")));
 app.use("/bookslist/createNew", express.static(path.join(__dirname, "public")));
 app.use("/bookslist/edit/:id", express.static(path.join(__dirname, "public")));
 app.use(logger("dev"));
@@ -50,5 +51,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
 
 module.exports = app;

@@ -15,10 +15,10 @@ exports.addBook = async (req, res, next) => {
         .saveImage(files)
         .then(imageName => {
           let bookObj = {
-            title: fields.title,
-            basePrice: fields.basePrice,
-            author: fields.author,
-            publisher: fields.publisher,
+            title: fields.titleInput,
+            basePrice: fields.basePriceInput,
+            author: fields.authorInput,
+            publisher: fields.publisherInput,
             image_link: imageName,
           };
           return bookObj;

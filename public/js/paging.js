@@ -39,8 +39,10 @@ function setPage(num) {
   fetchData(currentPage, 6);
 }
 async function fetchData(currentPage, booksPerPage) {
-  const category_id=document.getElementById("category_id").textContent;
+  const category_id = document.getElementById("category_id").textContent;
+  const searchText = document.getElementsByName("bookName")[0].value;
   console.log(category_id);
+  console.log(searchText);
   $.ajax({
     url: "/bookslist/page",
     type: "GET",
@@ -48,6 +50,7 @@ async function fetchData(currentPage, booksPerPage) {
       page: currentPage,
       pagelimit: booksPerPage,
       category: category_id,
+      searchText: searchText,
     },
     success: function (res) {
       let content = "";

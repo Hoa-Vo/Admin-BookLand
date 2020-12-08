@@ -53,7 +53,7 @@ const previewImage = function (event) {
 const form = document.getElementById("submitForm");
 form.addEventListener("submit", e => {
   e.preventDefault();
-  const files = document.getElementsByName("book-image")[0].files[0];
+  const files = document.getElementsByName("bookImage")[0].files[0];
   const title = document.getElementsByName("titleInput")[0].value;
   const basePrice = document.getElementsByName("basePriceInput")[0].value;
   const author = document.getElementsByName("authorInput")[0].value;
@@ -64,10 +64,10 @@ form.addEventListener("submit", e => {
     const response = await axios.post(url, formData);
     return response;
   }
-  formData.append("title", title);
-  formData.append("basePrice", basePrice);
-  formData.append("author", author);
-  formData.append("publisher", publisher);
+  formData.append("titleInput", title);
+  formData.append("basePriceInput", basePrice);
+  formData.append("authorInput", author);
+  formData.append("publisherInput", publisher);
   run("/bookslist/createNew").then(res => {
     if (res.status === 202) {
       alert("Thêm thành công");

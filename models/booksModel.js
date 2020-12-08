@@ -3,6 +3,7 @@ const { ObjectID } = require("mongodb");
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage({}) });
 const fs = require("fs");
+const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 require("dotenv/config");
 
@@ -20,29 +21,50 @@ exports.get = async id => {
   return book;
 };
 
-exports.getCategoryNameById = async id => 
-{
-  const categoriesCollection = await db().collection("Category");
-  const result = categoriesCollection.findOne({_id: ObjectID(id)});
-  return result; 
-}
-
-exports.getAllCategory  = async() => 
-{
-  const categoriesCollection = await db().collection("Category");
-  const allCategories = await categoriesCollection.find({}).toArray(); 
-  return allCategories; 
-}
-
-
-// list by categoryID 
-exports.listByCategory = async categoryId => 
-{
+exports.searchBook = async bookName => {
   const bookCollection = await db().collection("Books");
-  const books = await bookCollection.find({category_id: categoryId}).toArray(); 
- 
-  return books; 
-}
+  //const books = await bookCollection.find({}).toArray();
+  const books = await bookCollection.find({ title: { $regex: bookName, $options: "i" } }).toArray();
+  console.log(books);
+  if (books == null) console.log("Không tìm thấy");
+  else {
+    console.log("Tìm thấy");
+    console.log();
+  }
+  return books;
+};
+
+exports.addBook = async bookObj => {
+  const bookCollection = await db().collection("Books");
+  let success = true;
+  let bookAdded = await bookCollection.insertOne(bookObj);
+
+  if (bookAdded === null || bookAdded === undefined) {
+    success = false;
+  }
+
+  return success;
+};
+
+exports.getCategoryNameById = async id => {
+  const categoriesCollection = await db().collection("Category");
+  const result = categoriesCollection.findOne({ _id: ObjectID(id) });
+  return result;
+};
+
+exports.getAllCategory = async () => {
+  const categoriesCollection = await db().collection("Category");
+  const allCategories = await categoriesCollection.find({}).toArray();
+  return allCategories;
+};
+
+// list by categoryID
+exports.listByCategory = async categoryId => {
+  const bookCollection = await db().collection("Books");
+  const books = await bookCollection.find({ category_id: categoryId }).toArray();
+
+  return books;
+};
 
 // add Book to database. addBook(bookObject)
 exports.addBook = async bookObj => {
@@ -65,7 +87,14 @@ exports.deleteBook = async id => {
     console.log(`Can't find book with ID ${id}`);
     success = false;
   } else {
-    const imagePath = `./public/images/booksImage/${existsBook.image_link}`;
+    const imagePath = path.join(
+      __dirname,
+      "..",
+      "public",
+      "images",
+      "booksImage",
+      existsBook.image_link
+    );
     fs.unlinkSync(imagePath);
     try {
       fs.unlinkSync(`${process.env.USER_IMAGE_URI}${existsBook.image_link}`);
@@ -81,7 +110,14 @@ exports.editBook = async bookObj => {
   let success = true;
   let existsBook = await bookCollection.findOne({ _id: ObjectID(bookObj.id) });
   try {
-    const imagePath = `./public/images/booksImage/${existsBook.image_link}`;
+    const imagePath = path.join(
+      __dirname,
+      "..",
+      "public",
+      "images",
+      "booksImage",
+      existsBook.image_link
+    );
     fs.unlinkSync(imagePath);
     try {
       fs.unlinkSync(`${process.env.USER_IMAGE_URI}${existsBook.image_link}`);
@@ -110,9 +146,16 @@ exports.editBook = async bookObj => {
 // Save image
 exports.saveImage = async file => {
   const oldPath = file.bookImage.path;
-  const imageName = file.bookImage.path.split("\\").pop();
+  const imageName = file.bookImage.path.split(path.sep).pop();
   const imageType = file.bookImage.name.split(".").pop();
-  const imagePath = `./public/images/booksImage/${imageName}.${imageType}`;
+  const imagePath = path.join(
+    __dirname,
+    "..",
+    "public",
+    "images",
+    "booksImage",
+    `${imageName}.${imageType}`
+  );
   const userImagePath = `${process.env.USER_IMAGE_URI}${imageName}.${imageType}`;
   var rawData = fs.readFileSync(oldPath);
   fs.writeFileSync(imagePath, rawData);
@@ -121,20 +164,29 @@ exports.saveImage = async file => {
   } catch (err) {}
   return `${imageName}.${imageType}`;
 };
-exports.paging = async (page,pageLimit,category)=>{
+exports.paging = async (page, pageLimit, category, searchText) => {
   const currentPage = parseInt(page);
   const limit = parseInt(pageLimit);
   const bookCollection = await db().collection("Books");
   let totalBook;
   let books;
-  console.log(category);
-  if(category!=="") {
-     books = await bookCollection.find({category_id: category}).skip(limit * currentPage - limit).limit(limit).toArray();
-     totalBook = books.length;
+  if (category) {
+    books = await bookCollection
+      .find({ category_id: category })
+      .skip(limit * currentPage - limit)
+      .limit(limit)
+      .toArray();
+    totalBook = books.length;
+  } else if (searchText) {
+    books = await bookCollection.find({ title: { $regex: searchText, $options: "i" } }).toArray();
+    totalBook = books.length;
+  } else {
+    books = await bookCollection
+      .find({})
+      .skip(limit * currentPage - limit)
+      .limit(limit)
+      .toArray();
+    totalBook = await bookCollection.count();
   }
-  else{
-    books = await bookCollection.find({}).skip(limit * currentPage - limit).limit(limit).toArray();
-    totalBook = await  bookCollection.count();
-  }
-  return {books,totalBook};
-}
+  return { books, totalBook };
+};
