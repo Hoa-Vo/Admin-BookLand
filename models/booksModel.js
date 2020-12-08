@@ -25,10 +25,18 @@ exports.searchBook= async bookName=>{
   //const books = await bookCollection.find({}).toArray();
   console.log(bookName); 
   //await bookCollection.createIndex({title: "text"}); 
-  const books = await bookCollection.find({ $text: { $search: "\"The\""}}).toArray();
+  //const books = await bookCollection.find({ $text: { $search: "\"The\""}}).toArray();
   //const books = await bookCollection.find({$or:[{title:{'$regex':bookName}}]});
   //await bookCollection.createIndex({title})
-  //const books=await bookCollection.find({title:"T"}).toArray();
+  ///const test = `/${bookName}/`;
+  let searchString = new RegExp(bookName) ;
+  const books=await bookCollection.find({ title: { $regex:bookName, $options: "i" } }).toArray();
+  //console.log(test);
+  console.log(books);
+  (books).forEach(element => {
+    
+    
+  });
   if (books==null) console.log("Không tìm thấy");
   else {
     console.log("Tìm thấy");

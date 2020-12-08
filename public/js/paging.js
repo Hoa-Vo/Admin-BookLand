@@ -3,7 +3,7 @@ let totalBook;
 let maxPage;
 let currentPage = 1;
 $(document).ready(() => {
-  fetchData(currentPage, booksPerPage);
+  // fetchData(currentPage, booksPerPage);
   $("#mytable #checkall").click(function () {
     if ($("#mytable #checkall").is(":checked")) {
       $("#mytable input[type=checkbox]").each(function () {
