@@ -30,21 +30,21 @@
 				</div>
 				<div class="col col-xs-3">
 					<h1>Filter theo loại sách</h1>
-					<div id="dropdown-category-filter">
-						<button id="test" onclick="toogleHideAndShowDropDown()"
-							class="btn btn-md btn-primary btn-create">
+					<div class="dropdown">
+						<button class="btn btn-md btn-primary btn-create dropdown-toggle" type="button"
+							id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							{{currentCategory}}
-							<p style="display: none" id="category_id">{{currentCategoryId}}</p>
 						</button>
-						<div id="filter-dropdown" class="drop-down-content">
+						<p id="category_id" style="display: none;">{{currentCategoryId}}</p>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 							{{#each categories}}
 								<form action="/bookslist" method="GET">
-									<input type="submit" value="{{name}}" />
+									<input class="category-input" type="submit" value="{{name}}" />
 									<input type="hidden" name="categoryID" value="{{_id}}" />
 								</form>
 							{{/each}}
 							<form action="/bookslist/" method="GET">
-								<input type="submit" value="Tất cả sách" />
+								<input class="category-input" type="submit" value="Tất cả sách" />
 								<input type="hidden" name="categoryID" value="all" />
 							</form>
 						</div>
