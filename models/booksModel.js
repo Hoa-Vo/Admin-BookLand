@@ -91,18 +91,12 @@ exports.deleteBook = async id => {
     console.log(`Can't find book with ID ${id}`);
     success = false;
   } else {
-    const imagePath = path.join(
-      __dirname,
-      "..",
-      "public",
-      "images",
-      "booksImage",
-      existsBook.image_link
-    );
-    fs.unlinkSync(imagePath);
-    try {
-      fs.unlinkSync(`${process.env.USER_IMAGE_URI}${existsBook.image_link}`);
-    } catch (err) {}
+    const tokens = existsBook.image_link.split("/");
+    const imageName = tokens[tokens.length - 1];
+    const imageId = imageName.split(".")[0];
+    await cloudinary.uploader.destroy(imageId, (err, result) => {
+      console.log(err, result);
+    });
     await bookCollection.deleteOne({ _id: ObjectID(id) });
     success = true;
   }
@@ -152,11 +146,10 @@ exports.saveImage = async file => {
   const oldPath = file.bookImage.path;
   let imagelink;
   await cloudinary.uploader.upload(oldPath, (err, result) => {
-    if(err){
-      imagelink= null;
-    }
-    else{
-      imagelink= result.url;
+    if (err) {
+      imagelink = null;
+    } else {
+      imagelink = result.url;
     }
   });
   return imagelink;
