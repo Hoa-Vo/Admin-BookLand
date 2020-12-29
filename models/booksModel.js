@@ -5,6 +5,12 @@ const upload = multer({ storage: multer.memoryStorage({}) });
 const fs = require("fs");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 require("dotenv/config");
 
 // list all
@@ -71,11 +77,9 @@ exports.addBook = async bookObj => {
   const bookCollection = await db().collection("Books");
   let success = true;
   let bookAdded = await bookCollection.insertOne(bookObj);
-
   if (bookAdded === null || bookAdded === undefined) {
     success = false;
   }
-
   return success;
 };
 // Delete book with specific Id
@@ -146,23 +150,16 @@ exports.editBook = async bookObj => {
 // Save image
 exports.saveImage = async file => {
   const oldPath = file.bookImage.path;
-  const imageName = file.bookImage.path.split(path.sep).pop();
-  const imageType = file.bookImage.name.split(".").pop();
-  const imagePath = path.join(
-    __dirname,
-    "..",
-    "public",
-    "images",
-    "booksImage",
-    `${imageName}.${imageType}`
-  );
-  const userImagePath = `${process.env.USER_IMAGE_URI}${imageName}.${imageType}`;
-  var rawData = fs.readFileSync(oldPath);
-  fs.writeFileSync(imagePath, rawData);
-  try {
-    fs.writeFileSync(userImagePath, rawData);
-  } catch (err) {}
-  return `${imageName}.${imageType}`;
+  let imagelink;
+  await cloudinary.uploader.upload(oldPath, (err, result) => {
+    if(err){
+      imagelink= null;
+    }
+    else{
+      imagelink= result.url;
+    }
+  });
+  return imagelink;
 };
 exports.paging = async (page, pageLimit, category, searchText) => {
   const currentPage = parseInt(page);

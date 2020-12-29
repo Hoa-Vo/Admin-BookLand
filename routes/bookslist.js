@@ -5,13 +5,14 @@ const booksDetailController = require("../controllers/booksDetailController");
 const createNewBookController = require("../controllers/createNewBookController");
 const bookDeleteController = require("../controllers/bookDeleteController");
 const editSpecifiedBookController = require("../controllers/editSpecifiedBookController");
-const searchSpecifiedBookController= require("../controllers/searchSpecifiedBookController");
+const searchSpecifiedBookController = require("../controllers/searchSpecifiedBookController");
+const pagingApi = require("../controllers/api/pagingApi");
 
 router.get("/", booksListController.listing);
 router.delete("/", bookDeleteController.deleteBook);
 router.get("/search", searchSpecifiedBookController.get);
 router.get("/createNew", createNewBookController.renderCreateNewBookPage);
-router.get("/page",booksListController.paging);
+router.get("/api/paging", pagingApi.paging);
 router.post("/createNew", createNewBookController.addBook);
 router.post("/edit", editSpecifiedBookController.editBook);
 router.get("/edit/:id", editSpecifiedBookController.renderEditSpecifiedPage);

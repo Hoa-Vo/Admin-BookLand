@@ -8,20 +8,25 @@ exports.renderCreateNewBookPage = (req, res, next) => {
 exports.addBook = async (req, res, next) => {
   const form = formidable.IncomingForm();
   await form.parse(req, function (err, fields, files) {
-    if (err || files.bookImage.type !== "image/jpeg") {
+    if (err || files.bookImage.type.split("/")[0] !== "image") {
       res.send(204);
     } else {
       booksModel
         .saveImage(files)
-        .then(imageName => {
-          let bookObj = {
-            title: fields.titleInput,
-            basePrice: fields.basePriceInput,
-            author: fields.authorInput,
-            publisher: fields.publisherInput,
-            image_link: imageName,
-          };
-          return bookObj;
+        .then(imagelink => {
+          if(imagelink) {
+            let bookObj = {
+              title: fields.titleInput,
+              basePrice: fields.basePriceInput,
+              author: fields.authorInput,
+              publisher: fields.publisherInput,
+              image_link: imagelink,
+            };
+            return bookObj;
+          }
+          else{
+            res.send(204);
+          }
         })
         .then(bookObj => {
           booksModel.addBook(bookObj).then(result => {

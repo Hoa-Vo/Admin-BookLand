@@ -34,7 +34,7 @@
 body {
   color: #666666;
   font-size: 15px;
-  font-family: "Quattrocento Sans", sans-serif;
+  font-family: "Calibri", sans-serif;
   line-height: 1.80857;
 }
 a {
@@ -284,8 +284,7 @@ p {
 .our-link ul li:last-child {
   border: none;
 }
-.main-header {
-}
+
 .search a {
   color: #d33b33;
 }
@@ -604,8 +603,7 @@ nav.navbar.bootsnav li.dropdown ul.dropdown-menu {
   border: solid 1px #e0e0e0;
   left: auto;
 }
-.btn-cart {
-}
+
 .cart-list h6 a {
   font-size: 16px;
   font-weight: 700;
@@ -661,8 +659,7 @@ ul.cart-list p .price {
   transform: scaleY(1);
   color: #ffffff;
 }
-.hvr-hover {
-}
+
 ul.cart-list > li.total > .btn:hover {
   color: #ffffff;
 }
@@ -868,8 +865,7 @@ ul.cart-list > li.total > .btn:hover {
 .filter-button-group button.active {
   background: #010101;
 }
-.filter-button-group button {
-}
+
 .products-single {
   overflow: hidden;
   position: relative;
@@ -1268,8 +1264,7 @@ ul.cart-list > li.total > .btn:hover {
   color: #d33b33;
   border-color: #d33b33;
 }
-.footer-link {
-}
+
 .footer-link h4 {
   color: #ffffff;
   font-size: 16px;
@@ -1960,7 +1955,6 @@ ul.cart-list > li.total > .btn:hover {
   box-shadow: none;
   color: #fff;
   display: inline-block;
-  float: right;
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
@@ -2053,7 +2047,7 @@ ul.cart-list > li.total > .btn:hover {
 }
 .new-account-login h5 {
   font-size: 18px;
-  color: #1111111;
+  color: "#1111111";
   font-weight: 600;
 }
 .new-account-login h5 a:hover {
@@ -2108,8 +2102,7 @@ ul.cart-list > li.total > .btn:hover {
 .service-icon i {
   font-size: 34px;
 }
-.my-account-page a:hover i {
-}
+
 .service-desc p {
   font-size: 16px;
 }
@@ -2415,8 +2408,7 @@ ul.cart-list > li.total > .btn:hover {
   color: #ffffff;
   border: none;
 }
-.share-bar {
-}
+
 .share-bar a {
   background: #d33b33;
   color: #ffffff;
@@ -2425,10 +2417,7 @@ ul.cart-list > li.total > .btn:hover {
   width: 34px;
   text-align: center;
 }
-.share-bar a {
-}
-.featured-products-box {
-}
+
 .featured-products-box .owl-nav {
   position: absolute;
   margin: 0 auto;
