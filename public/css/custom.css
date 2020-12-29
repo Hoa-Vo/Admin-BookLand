@@ -56,3 +56,9 @@
 .current-category {
   background-color: red;
 }
+#info {
+  height: 100%;
+  font-size: 40px;
+  align-items: center;
+  justify-content: center;
+}

@@ -7,84 +7,87 @@
 <script src=js/axios.js></script>
 <script src="js/paging.js"></script>
 <script src="js/helper.js"></script>
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="row">
-				<div class="col col-xs-9">
-					<h1>Bảng thông tin sách</h1>
-					<a href="./createNew">
-						<button type="submit" class="btn btn-md btn-primary btn-create">
-							Thêm sách mới
-						</button>
-					</a>
-					<form id="searchForm" class="search" action=/bookslist/search />
-					<div class="search__wrapper">
-						<input id="searchText" required value="{{bookName}}" type="text" name="bookName"
-							placeholder="Search book here" class="search__field">
-						<button type="submit" class="fa fa-search search__icon"></button>
-					</div>
+<script src="js/dropdownFilter.js"></script>
+<div style="height: 100vh;" class="container">
+	<div class="row" style="margin: 20px 0px;">
+		<div class="col col-xs-3">
+			<h1>Bảng thông tin sách</h1>
+			<a href="./createNew">
+				<button type="submit" class="btn btn-md btn-primary btn-create">
+					Thêm sách mới
+				</button>
+			</a>
+		</div>
+		<div class="col col-xs-3">
+			<h1>Filter theo loại sách</h1>
+			<div class="dropdown">
+				<button class="btn btn-md btn-primary btn-create dropdown-toggle" type="button" id="dropdownMenuButton"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					{{currentCategory}}
+				</button>
+				<p id="category_id" style="display: none;">{{currentCategoryId}}</p>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					{{#each categories}}
+						<form action="/bookslist" method="GET">
+							<input class="category-input" type="submit" value="{{name}}" />
+							<input type="hidden" name="categoryID" value="{{_id}}" />
+						</form>
+					{{/each}}
+					<form action="/bookslist/" method="GET">
+						<input class="category-input" type="submit" value="Tất cả sách" />
+						<input type="hidden" name="categoryID" value="all" />
 					</form>
-				</div>
-				<div class="col col-xs-3">
-					<h1>Filter theo loại sách</h1>
-					<div class="dropdown">
-						<button class="btn btn-md btn-primary btn-create dropdown-toggle" type="button"
-							id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							{{currentCategory}}
-						</button>
-						<p id="category_id" style="display: none;">{{currentCategoryId}}</p>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							{{#each categories}}
-								<form action="/bookslist" method="GET">
-									<input class="category-input" type="submit" value="{{name}}" />
-									<input type="hidden" name="categoryID" value="{{_id}}" />
-								</form>
-							{{/each}}
-							<form action="/bookslist/" method="GET">
-								<input class="category-input" type="submit" value="Tất cả sách" />
-								<input type="hidden" name="categoryID" value="all" />
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<br />
-			<div class="table-responsive">
-				<table id="mytable" class="table table-bordred table-striped ">
-					<thead>
-						<th><input type="checkbox" id="checkall" /></th>
-						<th>STT</th>
-						<th>Hình</th>
-						<th>Tên</th>
-						<th>Giá</th>
-						<th>Tác giả</th>
-						<th>Nhà xuất bản</th>
-						<th>Xem</th>
-						<th>Sửa</th>
-						<th>Xóa</th>
-					</thead>
-					<tbody id="book-list">
-					</tbody>
-				</table>
-			</div>
-			<div class="button-bar">
-				<div class="button-bar">
-					<nav aria-label="Page navigation example">
-						<ul id="btn-list" class="pagination">
-						</ul>
-					</nav>
 				</div>
 			</div>
 		</div>
+		<div class="col col-xs-6">
+			<form id="searchForm" class="search" action=/bookslist/search />
+			<div class="search__wrapper">
+				<input id="searchText" required value="{{bookName}}" type="text" name="bookName"
+					placeholder="Search book here" class="search__field">
+				<button type="submit" class="fa fa-search search__icon"></button>
+			</div>
+			</form>
+		</div>
 	</div>
-	<script src="js/dropdownFilter.js"></script>
-	<script id="products" type="text/x-handlebars-template">
+	<div class="row" id="info">...Loading</div>
+	<div class="row">
+		<div class="table-responsive">
+			<table id="mytable" class="table table-bordred table-striped ">
+				<thead>
+					<th><input type="checkbox" id="checkall" /></th>
+					<th>STT</th>
+					<th>Hình</th>
+					<th>Tên</th>
+					<th>Giá</th>
+					<th>Tác giả</th>
+					<th>Nhà xuất bản</th>
+					<th>Xem</th>
+					<th>Sửa</th>
+					<th>Xóa</th>
+				</thead>
+				<tbody id="book-list">
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="button-bar row">
+			<div class="button-bar">
+				<nav aria-label="Page navigation example">
+					<ul id="btn-list" class="pagination">
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+<script id="products" type="text/x-handlebars-template">
 	\{{#each this}}
 		<tr id="\{{_id}}">
 			<td><input type="checkbox" class="checkthis" /></td>
 			<td>\{{@index}}</td>
-			<td><img class="book-image" src="images/booksImage/\{{image_link}}" /> </td>
+			<td><img class="book-image" src="\{{image_link}}" /> </td>
 			<td>
 				<div class="book-info">
 					<p>\{{title}}</p>
@@ -128,7 +131,7 @@
 		</tr>
 	\{{/each}}
 	</script>
-	<script id="paging-hbs" type="text/x-handlebars-template">
+<script id="paging-hbs" type="text/x-handlebars-template">
 		<li id="prevBtn" class="page-item" >
 			<a   class="page-link " onclick="prevBtnClick()" aria-label="Previous">
 				<span aria-hidden="true">&laquo;</span>

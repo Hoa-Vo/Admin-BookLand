@@ -48,7 +48,8 @@ function setPage(num) {
   fetchData(currentPage, booksPerPage, 0);
 }
 function fetchData(currentPage, booksPerPage, isPrevNextClick) {
-  $("#book-list").html("<div id='loading'>Loading...</div>");
+  $("#info").css("display", "flex");
+  $(".table-responsive").css("display", "none");
   const category_id = document.getElementById("category_id").textContent;
   console.log(category_id);
   const searchText = document.getElementById("searchText").value;
@@ -93,6 +94,8 @@ function fetchData(currentPage, booksPerPage, isPrevNextClick) {
       }
       updateBookList(res.data.books);
       inThisPage(currentPage);
+      $("#info").css("display", "none");
+      $(".table-responsive").css("display", "contents");
       if (currentPage === 1) {
         $("#prevBtn").addClass("disabled");
       } else if (currentPage === maxPage) {
