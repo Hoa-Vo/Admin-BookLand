@@ -50,7 +50,7 @@
 			</form>
 		</div>
 	</div>
-	<div class="row" id="info">...Loading</div>
+	<div class="row" id="info">Đang tải...</div>
 	<div class="row">
 		<div class="table-responsive">
 			<table id="mytable" class="table table-bordred table-striped ">
@@ -64,7 +64,8 @@
 					<th>Nhà xuất bản</th>
 					<th>Xem</th>
 					<th>Sửa</th>
-					<th>Xóa</th>
+					<th>Thay đổi trạng thái</th>
+					<th>Trạng thái</th>
 				</thead>
 				<tbody id="book-list">
 				</tbody>
@@ -84,7 +85,7 @@
 </div>
 <script id="products" type="text/x-handlebars-template">
 	\{{#each this}}
-		<tr id="\{{_id}}">
+		<tr >
 			<td><input type="checkbox" class="checkthis" /></td>
 			<td>\{{@index}}</td>
 			<td><img class="book-image" src="\{{image_link}}" /> </td>
@@ -125,8 +126,15 @@
 				<p data-placement="top" data-toggle="tooltip" title="Delete">
 					<button id="\{{_id}}-del" onclick="delBook(this.id)" class="btn btn-danger btn-xs" data-title="Delete"
 						data-toggle="modal">
-						<i class="far fa-trash-alt"></i>
+						<i class="fas fa-exchange-alt"></i>
 				</p>
+			</td>
+			<td id="\{{_id}}">
+				\{{#if is_deleted}}
+				    <p>Đã xóa</p>
+				   \{{else}}
+					<p>Tồn tại</p>
+				\{{/if}}
 			</td>
 		</tr>
 	\{{/each}}

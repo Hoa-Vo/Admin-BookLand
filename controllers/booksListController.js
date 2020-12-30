@@ -1,39 +1,43 @@
-const booksListModel = require("../models/booksModel.js");
+const booksModel = require("../models/booksModel.js");
 
 exports.listing = async (req, res, next) => {
-  // get req category 
-  const receivedCategoryID = req.query.categoryID; 
-  let currentCategory = null; 
+  // get req category
+  const receivedCategoryID = req.query.categoryID;
+  let currentCategory = null;
 
   let booksToShow;
-  console.log(`Received with query: ${receivedCategoryID}`); 
+  console.log(`Received with query: ${receivedCategoryID}`);
 
-  if(receivedCategoryID === "all")
-  {
-    res.redirect('/bookslist/');
+  if (receivedCategoryID === "all") {
+    res.redirect("/bookslist/");
     return;
   }
-  if(receivedCategoryID != undefined)
-  {
+  if (receivedCategoryID != undefined) {
     // Apply filter
-    
-    booksToShow = await booksListModel.listByCategory(receivedCategoryID); 
-    currentCategory = await booksListModel.getCategoryNameById(receivedCategoryID); 
+
+    booksToShow = await booksModel.listByCategory(receivedCategoryID);
+    currentCategory = await booksModel.getCategoryNameById(receivedCategoryID);
     currentCategory = currentCategory.name;
-  }
-  else{
+  } else {
     currentCategory = "Tất cả";
-    booksToShow = await booksListModel.list();
+    booksToShow = await booksModel.list();
   }
-   
-   
-  
-  const categoriesListToShowInMenu = await booksListModel.getAllCategory(); 
+  const categoriesListToShowInMenu = await booksModel.getAllCategory();
   // Pass data to view to display list of books
-  res.render("booksPage/bookslist", {currentCategoryId: receivedCategoryID,books: booksToShow, categories: categoriesListToShowInMenu, currentCategory:currentCategory});
+  res.render("booksPage/bookslist", {
+    currentCategoryId: receivedCategoryID,
+    books: booksToShow,
+    categories: categoriesListToShowInMenu,
+    currentCategory: currentCategory,
+  });
   //res.render("booksPage/bookslist"
 };
-exports.paging= async  (req,res,next)=>{
-  const data  = await  booksListModel.paging(req.query.page,req.query.pagelimit,req.query.category,req.query.searchText);
-  res.send({data});
-}
+exports.paging = async (req, res, next) => {
+  const data = await booksModel.paging(
+    req.query.page,
+    req.query.pagelimit,
+    req.query.category,
+    req.query.searchText
+  );
+  res.send({ data });
+};

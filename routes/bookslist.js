@@ -12,7 +12,6 @@ router.get("/", booksListController.listing);
 router.delete("/", bookDeleteController.deleteBook);
 router.get("/search", searchSpecifiedBookController.get);
 router.get("/createNew", createNewBookController.renderCreateNewBookPage);
-router.get("/api/paging", pagingApi.paging);
 router.post("/createNew", createNewBookController.addBook);
 router.post("/edit", editSpecifiedBookController.editBook);
 router.get("/edit/:id", editSpecifiedBookController.renderEditSpecifiedPage);

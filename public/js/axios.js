@@ -1,6 +1,6 @@
 function delBook(id) {
   let ID = id.split("-");
-  let answer = window.confirm("Delete this book?");
+  let answer = window.confirm("Thay đổi trạng thái cuốn sách này?");
   if (answer) {
     axios
       .delete("/bookslist", {
@@ -10,9 +10,13 @@ function delBook(id) {
       })
       .then(res => {
         if (res.status === 202) {
-          document.getElementById(ID[0]).remove();
+          if (res.data === true) {
+            $(`#${ID[0]}`).html("<p>Đã xóa</p>");
+          } else {
+            $(`#${ID[0]}`).html("<p>Tồn tại</p>");
+          }
         } else {
-          alert("Can't delete this book!!!");
+          alert("Lỗi khi thực hiên!!!");
         }
       })
       .catch(err => {

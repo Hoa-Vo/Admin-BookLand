@@ -14,17 +14,17 @@ exports.addBook = async (req, res, next) => {
       booksModel
         .saveImage(files)
         .then(imagelink => {
-          if(imagelink) {
+          if (imagelink) {
             let bookObj = {
               title: fields.titleInput,
               basePrice: fields.basePriceInput,
               author: fields.authorInput,
               publisher: fields.publisherInput,
               image_link: imagelink,
+              is_deleted: false,
             };
             return bookObj;
-          }
-          else{
+          } else {
             res.send(204);
           }
         })

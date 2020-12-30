@@ -4,7 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
-const cors = require('cors');
+const cors = require("cors");
 const app = express();
 
 const indexRouter = require("./routes/index");
@@ -13,6 +13,7 @@ const registerRouter = require("./routes/register");
 const booksListRouter = require("./routes/bookslist");
 //const createNewBookRouter = require("./routes/createNewBook");
 const editBookRouter = require("./routes/editBook");
+const pagingApiRouter = require("./routes/api/pagingApi");
 
 require("./database/db");
 // view engine setup
@@ -35,7 +36,7 @@ app.use("/", indexRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/bookslist", booksListRouter);
-
+app.use("/api/paging", pagingApiRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -51,6 +52,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-
 
 module.exports = app;

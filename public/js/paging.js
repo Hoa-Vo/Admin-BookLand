@@ -55,7 +55,7 @@ function fetchData(currentPage, booksPerPage, isPrevNextClick) {
   const searchText = document.getElementById("searchText").value;
   console.log(searchText);
   $.ajax({
-    url: "./api/paging",
+    url: "/api/paging/",
     type: "GET",
     data: {
       page: currentPage,
@@ -70,39 +70,43 @@ function fetchData(currentPage, booksPerPage, isPrevNextClick) {
       if (maxPage === 0) {
         maxPage = Math.ceil(totalBook / booksPerPage);
       }
-      console.log(res.data);
-      console.log(maxPage);
-      if (isPrevNextClick) {
-        let btnArr;
-        if (isPrevNextClick == 2) {
-          btnArr = listOfButtonNext(currentPage, maxButtonPerPage, maxPage);
-        } else {
-          btnArr = listOfButtonPrev(currentPage, maxButtonPerPage, maxPage);
+      if (res.data.books.length > 0) {
+        if (isPrevNextClick) {
+          let btnArr;
+          if (isPrevNextClick == 2) {
+            btnArr = listOfButtonNext(currentPage, maxButtonPerPage, maxPage);
+          } else {
+            btnArr = listOfButtonPrev(currentPage, maxButtonPerPage, maxPage);
+          }
+          pageNumberBar = "empty";
+          if (btnArr.length) {
+            updatePagination(btnArr);
+          }
         }
-        pageNumberBar = "empty";
-        if (btnArr.length) {
+        if (!pageNumberBar) {
+          let btnArr = [];
+          let condition = maxPage < maxButtonPerPage ? maxPage : maxButtonPerPage;
+          for (let i = 1; i <= condition; i++) {
+            btnArr.push(i);
+          }
           updatePagination(btnArr);
         }
-      }
-      if (!pageNumberBar) {
-        let btnArr = [];
-        let condition = maxPage < maxButtonPerPage ? maxPage : maxButtonPerPage;
-        for (let i = 1; i <= condition; i++) {
-          btnArr.push(i);
+        updateBookList(res.data.books);
+        inThisPage(currentPage);
+        $("#info").css("display", "none");
+        $(".table-responsive").css("display", "contents");
+        if (currentPage === 1) {
+          $("#prevBtn").addClass("disabled");
+        } else if (currentPage === maxPage) {
+          $("#nextBtn").addClass("disabled");
+        } else {
+          $("#prevBtn").removeClass("disabled");
+          $("#nextBtn").removeClass("disabled");
         }
-        updatePagination(btnArr);
-      }
-      updateBookList(res.data.books);
-      inThisPage(currentPage);
-      $("#info").css("display", "none");
-      $(".table-responsive").css("display", "contents");
-      if (currentPage === 1) {
-        $("#prevBtn").addClass("disabled");
-      } else if (currentPage === maxPage) {
-        $("#nextBtn").addClass("disabled");
       } else {
-        $("#prevBtn").removeClass("disabled");
-        $("#nextBtn").removeClass("disabled");
+        $("#info").css("display", "flex");
+        $("#info").html("<p>Không tìm thấy cuốn sách nào</p>");
+        $(".table-responsive").css("display", "none");
       }
     },
     error: function (jqXHR, textStatus, err) {

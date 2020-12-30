@@ -86,41 +86,34 @@ exports.addBook = async bookObj => {
 exports.deleteBook = async id => {
   const bookCollection = await db().collection("Books");
   let success = false;
+  let status;
   let existsBook = await bookCollection.findOne({ _id: ObjectID(id) });
   if (existsBook === null || existsBook === undefined) {
     console.log(`Can't find book with ID ${id}`);
     success = false;
   } else {
-    const tokens = existsBook.image_link.split("/");
-    const imageName = tokens[tokens.length - 1];
-    const imageId = imageName.split(".")[0];
-    await cloudinary.uploader.destroy(imageId, (err, result) => {
-      console.log(err, result);
-    });
-    await bookCollection.deleteOne({ _id: ObjectID(id) });
+    if (existsBook.is_deleted === false) {
+      status = true;
+      await bookCollection.updateOne({ _id: ObjectID(id) }, { $set: { is_deleted: true } });
+    } else {
+      status = false;
+      await bookCollection.updateOne({ _id: ObjectID(id) }, { $set: { is_deleted: false } });
+    }
     success = true;
   }
-  return success;
+  return { success, status };
 };
 // edit book
 exports.editBook = async bookObj => {
   const bookCollection = await db().collection("Books");
   let success = true;
   let existsBook = await bookCollection.findOne({ _id: ObjectID(bookObj.id) });
-  try {
-    const imagePath = path.join(
-      __dirname,
-      "..",
-      "public",
-      "images",
-      "booksImage",
-      existsBook.image_link
-    );
-    fs.unlinkSync(imagePath);
-    try {
-      fs.unlinkSync(`${process.env.USER_IMAGE_URI}${existsBook.image_link}`);
-    } catch (err) {}
-  } catch (err) {}
+  const tokens = existsBook.image_link.split("/");
+  const imageName = tokens[tokens.length - 1];
+  const imageId = imageName.split(".")[0];
+  await cloudinary.uploader.destroy(imageId, (err, result) => {
+    console.log(err, result);
+  });
   if (existsBook === null || existsBook === undefined) {
     console.log(`Can't find book with ID ${id}`);
     success = false;
