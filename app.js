@@ -14,8 +14,9 @@ const booksListRouter = require("./routes/bookslist");
 //const createNewBookRouter = require("./routes/createNewBook");
 const editBookRouter = require("./routes/editBook");
 const pagingApiRouter = require("./routes/api/pagingApi");
-
+const usersRouter = require("./routes/users");
 require("./database/db");
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
@@ -37,6 +38,7 @@ app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/bookslist", booksListRouter);
 app.use("/api/paging", pagingApiRouter);
+app.use("/users", usersRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -52,5 +54,8 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
+const port=3000;
+app.listen(port, ()=>{});
 
 module.exports = app;
