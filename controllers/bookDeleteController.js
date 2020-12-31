@@ -4,7 +4,6 @@ const booksModel = require("../models/booksModel.js");
 exports.deleteBook = async (req, res, next) => {
   // parse book ID from request
   const idToDelete = req.query.id;
-  console.log(`Received key-value ${idToDelete}`);
   let result = await booksModel.deleteBook(idToDelete);
   if (result.success === true) {
     res.status(202).send(result.status);

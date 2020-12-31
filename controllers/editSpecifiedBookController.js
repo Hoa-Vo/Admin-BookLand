@@ -3,7 +3,6 @@ const booksModel = require("../models/booksModel.js");
 exports.renderEditSpecifiedPage = async (req, res, next) => {
   // Get books from model
   const book = await booksModel.get(req.params.id);
-  console.log("get book from db:");
   console.dir(book.publisher);
   // Pass data to view to display list of books
   res.render("./editBook/editSpecifiedBookPage", {

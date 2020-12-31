@@ -6,7 +6,6 @@ exports.listing = async (req, res, next) => {
   let currentCategory = null;
 
   let booksToShow;
-  console.log(`Received with query: ${receivedCategoryID}`);
 
   if (receivedCategoryID === "all") {
     res.redirect("/bookslist/");
