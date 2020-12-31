@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="css/custom.css" />
+<link rel="stylesheet" href="css/searchBox.css" <link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<!-- Include the above in your HEAD tag -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src=js/userManagement.js></script>
+<script src="js/helper.js"></script>
+<div style="height: 100vh;" class="container">
+	<div class="row" style="margin: 20px 0px;">
+		<div class="col col-xs-3">
+			<h1>Bảng danh sách người dùng</h1>
+		</div>
+		<div class="col col-xs-6">
+			<form id="searchForm" class="search" action=/users/search/>
+				<div class="search__wrapper">
+					<input id="searchText" required value="{{userName}}" type="text" name="bookName"
+						placeholder="Search book here" class="search__field">
+					<button type="submit" class="fa fa-search search__icon"></button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row" id="info">Đang tải...</div>
+	<div class="row">
+		<div class="table-responsive col col-xs-9 col-center">
+			<table id="mytable" class="table table-bordred table-striped border-center border-right border-left border-bottom">
+				
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="button-bar row">
+			<div class="button-bar">
+				<nav aria-label="Page navigation example">
+					<ul id="btn-list" class="pagination">
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+<script id="users-list" type="text/x-handlebars-template">
+	<thead >
+		<th><input type="checkbox" id="checkall" /></th>
+		<th>STT</th>
+		<th>Ảnh</th>
+		<th>Họ tên</th>
+		<th>Email</th>
+		<th>Vai trò</th>
+		<th>Posts</th>
+		<th>Trạng thái</th>
+		<th>Xem</th>
+	</thead>
+	<tbody  id="users-table">
+	\{{#each this}}
+		<tr >
+			<td class="align-middle"><input type="checkbox" class="checkthis" /></td>
+			<td class="align-middle">\{{@index}}</td>
+			<td class="align-middle"><img class="img-responsive" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" /> </td>
+			<td class="align-middle">
+				<div class="book-info">
+					<a href="/profile/\{{_id}}">
+						<p>\{{name}}</p>
+					</a>
+				</div>
+			</td>
+			<td class="align-middle">
+				<div class="book-info"><p>\{{email}}</p></div>
+			</td>
+			<td class="align-middle">
+				<div class="book-info"><p>Admin or Users: {{role}}</p></div>
+			</td>
+			<td class="align-middle">
+				{{#if posts}}
+				<div class="book-info"><p>0</p></div>
+				{{else}}
+				<div class="book-info"><p>{{posts}}</p></div>
+				{{/if}}
+			</td>
+
+			<td class="align-middle">
+				{{#if isVerified}}
+				<div class="book-info"><p>Chưa xác thực</p></div>
+				{{else}}
+				<div class="book-info"><p>Đã xác thực</p></div>
+				{{/if}}
+			</td>
+			<td class="align-middle">
+				<p data-placement="top" data-toggle="tooltip" title="Xem">
+					<a href="/profile/\{{_id}}">
+						<button class="btn btn-success btn-xs" data-title="See" data-toggle="modal">
+							<i class="fas fa-eye"></i>
+						</button>
+					</a>
+				</p>
+			</td>
+			
+		</tr>
+	\{{/each}}
+	</tbody>
+</script>
+<script id="paging-list" type="text/x-handlebars-template">
+	<li id="prevBtn" class="page-item " >
+		<a   class="page-link " onclick="prevBtnClick()" aria-label="Previous">
+			<span aria-hidden="true">&laquo;</span>
+			<span class="sr-only">Previous</span>
+		</a>
+	</li>
+	\{{#each this}}
+		<li id="page-\{{curPage}}" onclick="setPage(this.textContent)" class="page-item"><a class="page-link">\{{curPage}}</a></li>
+	\{{/each}}
+	<li id="nextBtn" class="page-item">
+		<a class="page-link" onclick="nextBtnClick()" aria-label="Next">
+			<span aria-hidden="true">&raquo;</span>
+			<span class="sr-only">Next</span>
+		</a>
+	</li>
+</script>
+
+
