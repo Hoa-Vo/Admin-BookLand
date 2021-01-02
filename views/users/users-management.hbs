@@ -11,14 +11,25 @@
 		<div class="col col-xs-3">
 			<h1>Bảng danh sách người dùng</h1>
 		</div>
+		
 		<div class="col col-xs-6">
-			<form id="searchForm" class="search" action=/users/search/>
+			
+			
 				<div class="search__wrapper">
-					<input id="searchText" required value="{{userName}}" type="text" name="bookName"
-						placeholder="Search book here" class="search__field">
-					<button type="submit" class="fa fa-search search__icon"></button>
+					<form id="searchForm" class="search" onsubmit="return load_user_paging();"  ></form>
+						<div class="input-group col-xs-6">
+							<input id="searchText" required value="{{userName}}" type="text" name="bookName"
+							placeholder="Tìm kiếm theo tên..."   class="form-control py-2 ">
+							<span class="input-group-append">
+								<button  class="btn btn-outline-secondary" onclick="return load_user_paging();" type="submit">
+									<i class="fa fa-search">
+									</i>
+								</button>
+							</span>
+						</div>
+					</form>
 				</div>
-			</form>
+			
 		</div>
 	</div>
 	<div class="row" id="info">Đang tải...</div>

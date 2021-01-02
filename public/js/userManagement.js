@@ -16,10 +16,15 @@ window.onload = function () {
 };
 
 async function load_user_paging() {
+  $("#searchForm").click(function (event) {
+    event.preventDefault();
+  });
+  const searchtext=$("#searchText").val();
   await $.ajax({
-    url: "/users/paging",
+    url: "/users/search-paging",
     method: "GET",
     data: {
+      searchtext:searchtext,
       pageLimit: maxItemsPerPage,
       page: currentPage,
     },
@@ -42,6 +47,17 @@ async function load_user_paging() {
       alert("Lỗi tải danh sách người dùng");
     },
   });
+}
+
+function search_text()
+{
+
+}
+
+function search_text_handler()
+{
+  const text=$("#searchText").val();
+  return text;
 }
 
 function update_users_table(usersList, count) {
