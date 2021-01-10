@@ -3,7 +3,7 @@
 <!-- Basic -->
 
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<!-- Mobile Metas -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,23 +13,25 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<!-- Site Icons -->
-	<link rel="icon" href="images/open-book.png" type="image/x-icon">
+	<link rel="shortcut icon" href="images/open-book.png" type="image/x-icon">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<script src="https://kit.fontawesome.com/21d91c27a8.js" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 	<!-- Site CSS -->
 	<link rel="stylesheet" href="css/style.css">
 	<!-- Responsive CSS -->
 	<link rel="stylesheet" href="css/responsive.css">
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="css/custom.css">
+	<script src="https://kit.fontawesome.com/21d91c27a8.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/cart.js"></script>
+	<script src="js/user.js"></script>
 </head>
 
 <body>
 	<!-- Start Main Top -->
-	<!-- End Main Top -->
 	<!-- Start Main Top -->
 	<header class="main-header">
 		<!-- Start Navigation -->
@@ -43,7 +45,7 @@
 					</button>
 					<a class="navbar-brand logo-brand" href="/"><img style="width:50px; margin-right: 10px"
 							src="images/open-book.png" class="logo" alt="">
-						<p style="display: contents;">BOOKLAND</p>
+						<p>BOOKLAND</p>
 					</a>
 				</div>
 				<!-- End Header Navigation -->
@@ -51,48 +53,34 @@
 				<div class="collapse navbar-collapse" id="navbar-menu">
 					<ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
 						<li class="nav-item active"><a class="nav-link" href="/">Trang chủ</a></li>
+						<li class="nav-item"><a class="nav-link" href="/about-us">Về chúng tôi</a></li>
 						<li class="nav-item"><a class="nav-link" href="/bookslist">Sách</a></li>
 						<li class="nav-item"><a class="nav-link" href="/users">Người dùng</a></li>
-						<li class="nav-item"><a class="nav-link" href="/service">Hướng dẫn sử dụng</a></li>
 						<li class="dropdown">
-							<a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Tài khoản</a>
-							<ul class="dropdown-menu">
-								<li><a href="/login">Đăng nhập</a></li>
-								<li><a href="/register">Đăng kí</a></li>
-							</ul>
+							{{#if userToShow}}
+								<a href="/account" class="nav-link dropdown-toggle arrow"
+									data-toggle="dropdown" id="userToShow-name">{{userToShow.name}}</a>
+								<ul class="dropdown-menu">
+									<li><a href="/account">Thông tin tài khoản</a></li>
+									<li><a href="/logout">Đăng xuất</a></li>
+								</ul>
+							{{else}}
+								<a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Đăng kí/Đăng
+									nhập</a>
+								<ul class="dropdown-menu">
+									<li><a href="/register">Đăng kí</a></li>
+									<li><a href="/login">Đăng nhập</a></li>
+								</ul>
+							{{/if}}
 						</li>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
 				<!-- Start Atribute Navigation -->
+				
+				<!-- End Atribute Navigation -->
 			</div>
 			<!-- Start Side Menu -->
-			<div class="side">
-				<a href="#" class="close-side"><i class="fa fa-times"></i></a>
-				<li class="cart-box">
-					<ul class="cart-list">
-						<li>
-							<!-- <a href="#" class="photo"><img src="images/img-pro-01.jpg" class="cart-thumb" alt="" /></a> -->
-							<h6><a href="#">Delica omtantur </a></h6>
-							<p>1x - <span class="price">$80.00</span></p>
-						</li>
-						<li>
-							<!-- <a href="#" class="photo"><img src="images/img-pro-02.jpg" class="cart-thumb" alt="" /></a> -->
-							<h6><a href="#">Omnes ocurreret</a></h6>
-							<p>1x - <span class="price">$60.00</span></p>
-						</li>
-						<li>
-							<!-- <a href="#" class="photo"><img src="images/img-pro-03.jpg" class="cart-thumb" alt="" /></a> -->
-							<h6><a href="#">Agam facilisis</a></h6>
-							<p>1x - <span class="price">$40.00</span></p>
-						</li>
-						<li class="total">
-							<a href="#" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-							<span class="float-right"><strong>Total</strong>: $180.00</span>
-						</li>
-					</ul>
-				</li>
-			</div>
 			<!-- End Side Menu -->
 		</nav>
 		<!-- End Navigation -->
@@ -108,13 +96,14 @@
 			</div>
 		</div>
 	</div>
+	
 	<!-- End Top Search -->
 	<!-- Start Slider -->
 	<!-- Start Footer  -->
 	<div>
 		{{{body}}}
 	</div>
-	<!-- <footer>
+	<footer>
 		<div class="footer-main">
 			<div class="container">
 				<div class="row">
@@ -171,9 +160,14 @@
 				</div>
 			</div>
 		</div>
-	</footer> -->
+	</footer>
 	<!-- End Footer  -->
 	<!-- Start copyright  -->
+	<div class="footer-copyright">
+		<p class="footer-company">All Rights Reserved. &copy; 2018 <a href="#">ThewayShop</a> Design By :
+			<a href="https://html.design/">html design</a>
+		</p>
+	</div>
 	<!-- End copyright  -->
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 	<!-- ALL JS FILES -->
@@ -191,6 +185,15 @@
 	<script src="js/form-validator.min.js"></script>
 	<script src="js/contact-form-script.js"></script>
 	<script src="js/custom.js"></script>
+	<script id="user-info2" type="text/x-handlebars-template">
+		<p>{{userToShow._id}}</p>
+	</script>
+	
+	<script id="user-info2" type="text/x-handlebars-template">
+		<p id="user-name" style="display: none;">{{userToShow.name}}</p>
+		<p id="user-id" style="display: none;">{{userToShow._id}}</p>
+		<p id="user-email" style="display: none;">{{userToShow.email}}</p>
+	</script>
 </body>
 
 </html>

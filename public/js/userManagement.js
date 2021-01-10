@@ -13,12 +13,14 @@ window.onload = function () {
   $(document).ready(function () {
     load_user_paging();
   });
+  
 };
 
 async function load_user_paging() {
   $("#searchForm").click(function (event) {
     event.preventDefault();
   });
+  //isSignedIn=isSignedIn();
   const searchtext=$("#searchText").val();
   await $.ajax({
     url: "/users/search-paging",
@@ -27,6 +29,7 @@ async function load_user_paging() {
       searchtext:searchtext,
       pageLimit: maxItemsPerPage,
       page: currentPage,
+      user:userToShow,
     },
     success: function (response) {
       if (true) {
@@ -49,9 +52,19 @@ async function load_user_paging() {
   });
 }
 
-function search_text()
-{
-
+function isSignedIn() {
+  //lay user fomr layout.hbs
+  let userId = $("#user-id").val();
+  let userName = $("#user-name").val();
+  let userEmail = $("#user-email").val();
+  if (userId == "" || userId == undefined || userId == null) {
+    userToShow = null;
+    isSingedIn = false;
+  } else {
+    userToShow = { id: userId, name: userName, email: userEmail };
+    isSingedIn = true;
+  }
+  return isSingedIn;
 }
 
 function search_text_handler()

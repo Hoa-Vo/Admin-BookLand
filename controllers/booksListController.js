@@ -1,9 +1,15 @@
 const booksModel = require("../models/booksModel.js");
-
+const accountModel=require("../models/accountModel.js");
 exports.listing = async (req, res, next) => {
   // get req category
   const receivedCategoryID = req.query.categoryID;
   let currentCategory = null;
+
+  let userToShow=null;
+  if(req.user)
+  {
+    userToShow=accountModel.getUserById(req.user._id);
+  }
 
   let booksToShow;
   console.log(`Received with query: ${receivedCategoryID}`);
@@ -29,6 +35,7 @@ exports.listing = async (req, res, next) => {
     books: booksToShow,
     categories: categoriesListToShowInMenu,
     currentCategory: currentCategory,
+    userToShow:userToShow,
   });
   //res.render("booksPage/bookslist"
 };
