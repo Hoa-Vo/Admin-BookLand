@@ -31,11 +31,10 @@ exports.searchBook = async bookName => {
   const bookCollection = await db().collection("Books");
   //const books = await bookCollection.find({}).toArray();
   const books = await bookCollection.find({ title: { $regex: bookName, $options: "i" } }).toArray();
-  console.log(books);
+
   if (books == null) console.log("Không tìm thấy");
   else {
     console.log("Tìm thấy");
-    console.log();
   }
   return books;
 };

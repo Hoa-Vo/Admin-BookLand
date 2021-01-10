@@ -41,11 +41,6 @@ function editBook(id) {
     });
 }
 
-// function selectCategory
-// {
-//   cons
-// }
-
 const previewImage = function (event) {
   let reader = new FileReader();
   reader.onload = function () {
@@ -57,6 +52,7 @@ const previewImage = function (event) {
 const form = document.getElementById("submitForm");
 form.addEventListener("submit", e => {
   e.preventDefault();
+  $(".loader").css("display", "flex");
   const files = document.getElementsByName("bookImage")[0].files[0];
   const title = document.getElementsByName("titleInput")[0].value;
   const basePrice = document.getElementsByName("basePriceInput")[0].value;
@@ -73,6 +69,7 @@ form.addEventListener("submit", e => {
   formData.append("authorInput", author);
   formData.append("publisherInput", publisher);
   run("/bookslist/createNew").then(res => {
+    $(".loader").css("display", "none");
     if (res.status === 202) {
       alert("Thêm thành công");
     } else {

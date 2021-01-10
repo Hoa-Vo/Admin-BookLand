@@ -1,7 +1,6 @@
 const formidable = require("formidable");
 const booksModel = require("../models/booksModel.js");
 exports.renderCreateNewBookPage = (req, res, next) => {
-  console.log("reach before render");
   res.render("./createNewBook/createNewBookPage");
 };
 
