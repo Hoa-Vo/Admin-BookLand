@@ -34,6 +34,7 @@ app.use("/bookslist/search", express.static(path.join(__dirname, "public")));
 app.use("/bookslist/createNew", express.static(path.join(__dirname, "public")));
 app.use("/bookslist/edit/:id", express.static(path.join(__dirname, "public")));
 app.use("/users/profile/:id", express.static(path.join(__dirname, "public")));
+app.use("/account", express.static(path.join(__dirname, "public")));
 
 app.use(logger("dev"));
 app.use(express.json());

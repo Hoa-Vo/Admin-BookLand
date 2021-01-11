@@ -7,8 +7,17 @@ exports.renderUsersLayout=async (req,res,next)=>
     if(req.user)
     {
         userToShow=await accountModel.getUserById(req.user._id);
+        res.render("./usersManagement/users-management",
+        {
+            userToShow:userToShow,
+            isSignedIn:true,
+        });
     }
-    res.render("./usersManagement/users-management",{userToShow:userToShow});
+    else 
+    {
+        res.redirect('/login');
+    }
+    
 }
 
 exports.renderSearchAndPaging=async(req,res,next)=>

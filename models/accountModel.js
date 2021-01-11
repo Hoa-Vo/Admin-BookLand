@@ -76,3 +76,39 @@ exports.isExistsEmail = async inputEmail => {
   }
   
 }
+
+exports.lockAccount=async id =>
+{
+  const accountCollection =await db().collection("registeredUser");
+  let success = false;
+  let existsAccount = await accountCollection.findOne({ _id: ObjectID(id) });
+  
+  if (existsAccount === null || existsAccount === undefined) {
+    console.log(`Can't find users with ID ${id}`);
+    success = false;
+  } else {
+    if (existsAccount.isLocked === false) {
+      await accountCollection.updateOne({ _id: ObjectID(id) }, { $set: { isLocked: true } });
+    } 
+    success = true;
+  }
+  return { success };
+}
+
+exports.unlockAccount=async id =>
+{
+  const accountCollection =await db().collection("registeredUser");
+  let success = false;
+  let existsAccount = await accountCollection.findOne({ _id: ObjectID(id) });
+  
+  if (existsAccount === null || existsAccount === undefined) {
+    console.log(`Can't find users with ID ${id}`);
+    success = false;
+  } else {
+    if (existsAccount.isLocked === true) {
+      await accountCollection.updateOne({ _id: ObjectID(id) }, { $set: { isLocked: false } });
+    } 
+    success = true;
+  }
+  return { success };
+}

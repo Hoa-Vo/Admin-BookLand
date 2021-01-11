@@ -4,5 +4,7 @@ const usersController=require("../controllers/usersController");
 const accountController=require("../controllers/userAccountController");
 router.get("/",usersController.renderUsersLayout);
 router.get("/search-paging",usersController.renderSearchAndPaging);
+router.post("/profile/lock-account",accountController.lockAccount);
+router.post("/profile/unlock-account",accountController.unlockAccount);
 router.get("/profile/:id",accountController.getUsersByID);
 module.exports=router;
