@@ -1,9 +1,17 @@
 const formidable = require("formidable");
 const booksModel = require("../models/booksModel.js");
+const accountModel = require("../models/accountModel");
 exports.renderEditSpecifiedPage = async (req, res, next) => {
   // Get books from model
   const book = await booksModel.get(req.params.id);
   console.dir(book.publisher);
+
+  let userToShow=null;
+  if(req.user)
+  {
+    userToShow=accountModel.getUserById(req.user._id);
+  }
+
   // Pass data to view to display list of books
   res.render("./editBook/editSpecifiedBookPage", {
     id: book._id,
@@ -12,6 +20,7 @@ exports.renderEditSpecifiedPage = async (req, res, next) => {
     publisher: book.publisher,
     author: book.author,
     imageLink: book.image_link,
+    userToShow:userToShow,
   });
 };
 

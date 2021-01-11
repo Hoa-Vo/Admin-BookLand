@@ -1,7 +1,13 @@
 const formidable = require("formidable");
 const booksModel = require("../models/booksModel.js");
+const accountModel = require("../models/accountModel");
 exports.renderCreateNewBookPage = (req, res, next) => {
-  res.render("./createNewBook/createNewBookPage");
+  let userToShow=null;
+  if(req.user)
+  {
+    userToShow=accountModel.getUserById(req.user._id);
+  }
+  res.render("./createNewBook/createNewBookPage",{userToShow:userToShow});
 };
 
 exports.addBook = async (req, res, next) => {
