@@ -9,36 +9,42 @@ exports.listing = async (req, res, next) => {
   if(req.user)
   {
     userToShow=accountModel.getUserById(req.user._id);
-  }
 
-  let booksToShow;
+    let booksToShow;
 
-  if (receivedCategoryID === "all") {
-    res.redirect("/bookslist/");
-    return;
-  }
-  if (receivedCategoryID != undefined) {
-    // Apply filter
+    if (receivedCategoryID === "all") {
+      res.redirect("/bookslist/");
+      return;
+    }
+    if (receivedCategoryID != undefined) {
+      // Apply filter
 
-    booksToShow = await booksModel.listByCategory(receivedCategoryID);
-    currentCategory = await booksModel.getCategoryNameById(receivedCategoryID);
-    currentCategory = currentCategory.name;
-  } else {
-    currentCategory = "Tất cả";
-    booksToShow = await booksModel.list();
+      booksToShow = await booksModel.listByCategory(receivedCategoryID);
+      currentCategory = await booksModel.getCategoryNameById(receivedCategoryID);
+      currentCategory = currentCategory.name;
+    } else {
+      currentCategory = "Tất cả";
+      booksToShow = await booksModel.list();
+    }
+    const categoriesListToShowInMenu = await booksModel.getAllCategory();
+    // Pass data to view to display list of books
+    res.render("booksPage/bookslist", {
+      currentCategoryId: receivedCategoryID,
+      books: booksToShow,
+      categories: categoriesListToShowInMenu,
+      currentCategory: currentCategory,
+      userToShow:userToShow,
+      isSignedIn:true,
+    });
   }
-  const categoriesListToShowInMenu = await booksModel.getAllCategory();
-  // Pass data to view to display list of books
-  res.render("booksPage/bookslist", {
-    currentCategoryId: receivedCategoryID,
-    books: booksToShow,
-    categories: categoriesListToShowInMenu,
-    currentCategory: currentCategory,
-    userToShow:userToShow,
-  });
+  else
+  {
+    res.redirect('/login');
+  }
   //res.render("booksPage/bookslist"
 };
 exports.paging = async (req, res, next) => {
+  
   const data = await booksModel.paging(
     req.query.page,
     req.query.pagelimit,

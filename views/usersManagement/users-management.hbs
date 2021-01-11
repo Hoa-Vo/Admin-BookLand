@@ -60,7 +60,6 @@
 		<th>Ảnh</th>
 		<th>Họ tên</th>
 		<th>Email</th>
-		<th>Vai trò</th>
 		<th>Khóa tài khoản</th>
 		<th>Xác thực</th>
 		<th>Xem</th>
@@ -78,16 +77,13 @@
 				\{{/if}}
 			<td class="align-middle">
 				<div class="book-info">
-					<a href="/profile/\{{_id}}">
+					<a href="/users/profile/\{{_id}}">
 						<p>\{{name}}</p>
 					</a>
 				</div>
 			</td>
 			<td class="align-middle">
 				<div class="book-info"><p>\{{email}}</p></div>
-			</td>
-			<td class="align-middle">
-				<div class="book-info"><p>Admin or Users: \{{role}}</p></div>
 			</td>
 			<td class="align-middle">
 				\{{#if isLocked}}

@@ -172,3 +172,41 @@ exports.paging = async (page, pageLimit, category, searchText) => {
   }
   return { books, totalBook };
 };
+
+exports.saveAvatar = async file => {
+  const oldPath = file.avatarImageInput.path;
+  const imageName = file.avatarImageInput.path.split(path.sep).pop();
+
+  const imageType = file.avatarImageInput.name.split(".").pop();
+
+  const imagePath = path.join(".", "public", "images", "userImage", `${imageName}.${imageType}`);
+
+  let rawData = fs.readFileSync(oldPath);
+  fs.writeFileSync(imagePath, rawData);
+
+  return `${imageName}.${imageType}`;
+};
+
+
+exports.editAvatar = async userObject => {
+  const userCollection = await db().collection("registeredUser");
+  const id = userObject.id;
+  let success = false;
+
+  let existsUser = await userCollection.findOne({ _id: ObjectID(id) });
+  if (existsUser === null || existsUser === undefined) {
+    console.log(`Cant find user with id ${id}`);
+    success = false;
+  } else {
+    userCollection.updateOne(
+      { _id: ObjectID(id) },
+      {
+        $set: {
+          avatar_image: userObject.avatar_image,
+        },
+      }
+    );
+    success = true;
+  }
+  return success;
+};
