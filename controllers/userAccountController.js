@@ -8,7 +8,7 @@ exports.get = async (req, res, next) => {
     userToShow=await accountModel.getUserById(req.user._id);
     
   }
-  const user = await accountModel.getUserById(req.params.id);
+  const user = await accountModel.getUserById(req.user._id);
 
     res.render("userAccount/account", {
       id: user._id,
