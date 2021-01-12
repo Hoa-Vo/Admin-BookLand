@@ -21,6 +21,7 @@ const usersRouter = require("./routes/users");
 const accountRouter=require("./routes/account");
 const checkOutRouter = require("./routes/checkout");
 const verifyRouter = require("./routes/verify");
+const orderRouter=require("./routes/ordersList");
 const apiRouter = require("./routes/api");
 require("./database/db");
 
@@ -35,6 +36,7 @@ app.use("/bookslist/createNew", express.static(path.join(__dirname, "public")));
 app.use("/bookslist/edit/:id", express.static(path.join(__dirname, "public")));
 app.use("/users/profile/:id", express.static(path.join(__dirname, "public")));
 app.use("/account", express.static(path.join(__dirname, "public")));
+app.use("/orders/order-detail", express.static(path.join(__dirname, "public")));
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -61,6 +63,7 @@ app.use("/bookslist", booksListRouter);
 app.use("/api/paging", pagingApiRouter);
 app.use("/account",accountRouter);
 app.use("/users", usersRouter);
+app.use("/orders",orderRouter);
 app.get("/logout", (req, res) => {
   req.logOut();
   res.redirect("/");
