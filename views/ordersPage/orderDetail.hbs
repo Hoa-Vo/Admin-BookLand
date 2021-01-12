@@ -1,0 +1,236 @@
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="js/cart.js"></script>
+<link href="css/account.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<div class="container ">
+    <div class="row">
+        <div class="col-md-6">
+            <br/><br/><br/>
+            <div class="profile-head">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                            aria-controls="home" aria-selected="true">Thông tin tài khoản</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                            aria-controls="profile" aria-selected="false">Thông tin giao hàng</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#lalala" role="tab"
+                            aria-controls="profile" aria-selected="false">Thông tin đơn hàng</a>
+                    </li>
+                </ul>
+            </div>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">                 
+                        <br/><br/><br/>
+                        <h1> Thông tin người dùng</h1>
+                        <br/><br/>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h3>ID khách hàng</h3>
+                            </div>
+                            <div class="col-md-9" >
+                                <h3 id="account-id">{{orderDetail.userID}}</h3>
+                            </div>
+                        
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h3>Tên khách hàng</h3>
+                            </div>
+                            <div class="col-md-9">
+                                <h3>{{orderDetail.name}}</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h3>Email</h3>
+                            </div>
+                            <div class="col-md-9">
+                                <h3>{{userDetail.email}}</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h3>Trạng thái</h3>
+                            </div>
+                            <div class="col-md-9">
+                                {{#if userDetail.isVerified}}
+                                <h3>Đã xác thực</h3>
+                                {{else}}
+                                <h3>Chưa xác thực</h3>
+                                {{/if}}
+                            </div>
+                        </div>
+                            <div class="row">
+                            <div class="col-md-3">
+                                <h3>Tình trạng</h3>
+                            </div>
+                            {{#if userDetail.isLocked}}
+                            <div class="col-md-9" id="div-is-locked">
+                                <h3>Bị khóa</h3>
+                            </div>
+                            {{else}}
+                            <div class="col-md-6" id="div-is-locked">
+                                <h3>Bình thường</h3>
+                            </div>
+                            {{/if}}
+
+                        </div>
+                        <br/><br/><br/>
+                    
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">                 
+                        <br/><br/><br/>
+                        <h1> Thông tin giao hàng</h1>
+                        <br/><br/>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h3>Địa chỉ giao hàng</h3>
+                            </div>
+                            <div class="col-md-9">
+                                <h3>{{orderDetail.address}}</h3>
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h3>Trạng thái</h3>
+                            </div>
+                            <div class="col-md-9">
+                                <h3>{{orderDetail.status}}</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h3>Ngày đặt hàng</h3>
+                            </div>
+                            
+                            <div class="col-md-9" id="div-is-locked">
+                                <h3>{{orderDetail.create_date}}</h3>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h3>Tổng tiền</h3>
+                            </div>
+                            
+                            <div class="col-md-9" id="div-is-locked">
+                                <h3 id="order-Detail-create-date"></h3>
+                            </div>
+
+                        </div>
+                        <br/><br/><br/>
+                    </div>
+                <div class="tab-pane fade" id="lalala" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="cart-box-main">
+                        <div class="container"> 
+                            <h1> Thông tin đơn hàng</h1>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table-main table-responsive">
+                                        <table class="table cart-exist">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ảnh</th>
+                                                    <th>Tên sách</th>
+                                                    <th>Đơn giá</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Tổng cộng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="cart-table">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="empty-cart">
+                                        <h2>CHƯA CÓ CUỐN SÁCH NÀO TRONG GIỎ HÀNG CỦA BẠN</h2>
+                                        <a style="color: white;" href="/bookslist" class="btn btn-default hvr-hover btn-cart">XEM SÁCH</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row my-5 cart-exist">
+                                <div class="col-lg-8 col-sm-12"></div>
+                                <div class="col-lg-4 col-sm-12">
+                                    <div class="order-box ">
+                                        <h3>THANH TOÁN</h3>
+                                        <div class="d-flex">
+                                            <h4>Tổng cộng</h4>
+                                            <div id="total-money-pay" class="ml-auto font-weight-bold"> </div>
+                                        </div>
+                                        <div class="d-flex">
+                                            <h4>Giảm giá</h4>
+                                            <div class="ml-auto font-weight-bold"> 0 VND </div>
+                                        </div>
+                                        <hr class="my-1">
+                                        <div class="d-flex">
+                                            <h4>Áp dụng mã giảm giá</h4>
+                                            <div class="ml-auto font-weight-bold"> 0 VND </div>
+                                        </div>
+                                        <div class="d-flex">
+                                            <h4>Thuế</h4>
+                                            <div class="ml-auto font-weight-bold"> 0 VND </div>
+                                        </div>
+                                        <div class="d-flex">
+                                            <h4>Phí vận chuyển</h4>
+                                            <div class="ml-auto font-weight-bold"> 0 VND</div>
+                                        </div>
+                                        <hr>
+                                        <div class="d-flex gr-total">
+                                            <h5>Số tiền phải thanh toán</h5>
+                                            <div id="checkout-money" class="ml-auto h5"></div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex shopping-box "><a href="/checkout" class="ml-auto btn hvr-hover">Thanh
+                                        toán</a>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+</div>
+    <div style="display:none">
+        <p>{{orderDetail.name}}</p>
+        <p id="order-id">{{orderDetail._id}}</p>
+        <p>{{orderDetail.userID}}</p>
+
+    </div>
+<script id="cart-page" type="text/x-handlebars-template">
+    \{{#each this}}
+        <tr>
+            <td class="thumbnail-img">
+                <a href="#">
+                    <img class="img-fluid" src="\{{image_link}}" alt="" />
+                </a>
+            </td>
+            <td class="name-pr">
+                <a href="#">
+                    \{{title}}
+                </a>
+            </td>
+            <td class="price-pr" >
+                <p>\{{basePrice}} VND</p>
+            </td>
+            <td class="quantity-box"><input onchange="" onfocusout="" onkeypress="" type="number" size="4" value="\{{quantity}}" min="1" step="1" class="c-input-text qty text">
+            </td>
+            <td class="total-pr">
+                <p>\{{totalPrice}} VND</p>
+            </td>
+        </tr>
+    \{{/each}}
+</script>
