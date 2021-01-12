@@ -210,3 +210,42 @@ exports.editAvatar = async userObject => {
   }
   return success;
 };
+
+
+exports.getOrderBookByID = async data => {
+  let arrID = [];
+  for (let i = 0; i < data.length; i++) {
+    arrID.push(ObjectID(data[i].id));
+  }
+  const bookCollection = await db().collection("Books");
+  const books = await bookCollection.find({ _id: { $in: arrID } }).toArray();
+  for (let i = 0; i < books.length; i++) {
+    const quantity = getQuantityAtIndex(data, books[i]._id);
+    books[i].quantity = quantity;
+    books[i].totalPrice = quantity * books[i].basePrice;
+  }
+  return books;
+};
+
+exports.getOrderInvoice = async data => {
+  let arrID = [];
+  for (let i = 0; i < data.length; i++) {
+    arrID.push(ObjectID(data[i].id));
+  }
+  const bookCollection = await db().collection("Books");
+  const books = await bookCollection.find({ _id: { $in: arrID } }).toArray();
+  let totalOrderPrice=0;
+  for (let i = 0; i < books.length; i++) {
+    const quantity = getQuantityAtIndex(data, books[i]._id);
+    totalOrderPrice+=quantity * books[i].basePrice;
+  }
+  return totalOrderPrice;
+};
+
+const getQuantityAtIndex = (data, id) => {
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].id.toString() === id.toString()) {
+      return data[i].quantity;
+    }
+  }
+};
