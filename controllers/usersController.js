@@ -22,22 +22,19 @@ exports.renderUsersLayout=async (req,res,next)=>
 
 exports.renderSearchAndPaging=async(req,res,next)=>
 {
-    
-    const currentPage=req.query.page;
-    const pageLimit=req.query.pageLimit;
-    const searchText=req.query.searchtext;
-    const usersList=await usersModel.fetchUsersAndPaging(searchText,currentPage,pageLimit);
-    
-    
-    //const userToShow= await accountModel.getUserById(req.user.id);
     let userToShow=null;
     if(req.user)
     {
         userToShow=await accountModel.getUserById(req.user._id);
     }
+    const currentPage=req.query.page;
+    const pageLimit=req.query.pageLimit;
+    const searchText=req.query.searchtext;
+    const category=req.query.category;
+    const usersList=await usersModel.fetchUsersAndPaging(category,searchText,currentPage,pageLimit);
 
     if (usersList!=undefined && usersList!=null && usersList!=""){
-        const count=await usersModel.getUsersCount(searchText);
+        const count=await usersModel.getUsersCount(category, searchText);
         res.status(200).send({usersList:usersList, count:count, userToShow:userToShow});
     }
     else {
