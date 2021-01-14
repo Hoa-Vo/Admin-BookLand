@@ -4,7 +4,7 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <!-- Include the above in your HEAD tag -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src=js/userManagement.js></script>
+<script src="js/userManagement.js"></script>
 <script src="js/helper.js"></script>
 <div class="shop-box-inner">
 <div  class="container">
@@ -12,10 +12,24 @@
 		<div class="col col-xs-3">
 			<h1>Bảng danh sách người dùng</h1>
 		</div>
-		
+		<div class="col col-xs-3">
+			<h1>Filter theo loại sách</h1>
+			<div class="dropdown">
+				<button class="btn btn-md btn-primary btn-create dropdown-toggle" type="button" id="dropdownMenuButton"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Lựa chọn
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<button class="category-button" type="button" 
+					onclick="selectionChanged('users')"
+					aria-haspopup="true">Người dùng</button>
+					<button class="category-button" type="button" 
+					onclick="selectionChanged('admin')"
+					aria-haspopup="true">Admin</button>
+				</div>
+			</div>
+		</div>
 		<div class="col col-xs-6">
-			
-			
 				<div class="search__wrapper">
 					<form id="searchForm" class="search" onsubmit="return load_user_paging();"  ></form>
 						<div class="input-group col-xs-6">
@@ -60,6 +74,7 @@
 		<th>Ảnh</th>
 		<th>Họ tên</th>
 		<th>Email</th>
+		<th>Vai trò</th>
 		<th>Khóa tài khoản</th>
 		<th>Xác thực</th>
 		<th>Xem</th>
@@ -84,6 +99,17 @@
 			</td>
 			<td class="align-middle">
 				<div class="book-info"><p>\{{email}}</p></div>
+			</td>
+			<td class="align-middle">
+				\{{#if role}}
+					\{{#if super_admin}}
+						<div class="book-info"><p>Super Admin</p></div>
+					\{{else}}
+						<div class="book-info"><p>Admin</p></div>
+					\{{/if}}
+				\{{else}} 
+				<div class="book-info"><p>Người dùng</p></div>
+				\{{/if}}
 			</td>
 			<td class="align-middle">
 				\{{#if isLocked}}

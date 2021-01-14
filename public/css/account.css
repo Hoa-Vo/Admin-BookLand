@@ -66,6 +66,7 @@
     font-weight: 600;
     color: #6c757d;
     cursor: pointer;
+    display:none;
   }
   .proile-rating {
     font-size: 12px;
@@ -113,4 +114,6 @@
     font-weight: 600;
     color: #0062cc;
   }
-  
+  #account-role{
+    display: none;
+  }

@@ -3,6 +3,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+
 <div class="container emp-profile">
     <form method="POST" action="/account" enctype="multipart/form-data">
         <div class="row">
@@ -43,7 +44,7 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Lưu avatar" />
+                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Lưu avatar"  id="change-avatar" />
                 <input  type="button" onclick="LockAccount()" id="btnLockAccount" value="Khóa tài khoản" name="btnLockAccount" class="profile-lock-btn" ></input>
                 <input  type="button" onclick="UnlockAccount()" id="btnUnlockAccount" value="Ngừng khóa tài khoản" name="btnLockAccount" class="profile-unlock-btn" ></input>
 
@@ -71,6 +72,7 @@
                             </div>
                             <div class="col-md-6" >
                                 <p id="account-id">{{id}}</p>
+                                
                             </div>
                         </div>
                         <div class="row">
@@ -91,8 +93,26 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+                                <label>Vai trò</label>
+                            </div>
+                            <p id="account-role">{{userToShow.super_admin}}</p>
+                            <div class="col-md-6" id='user-role'>
+                                {{#if role}}
+                                    {{#if super_admin}}
+                                        <p>Super Admin</p>
+                                    {{else}}
+                                        <p>Admin</p>
+                                    {{/if}}
+                                {{else}}
+                                    <p>Người dùng</p>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <label>Trạng thái</label>
                             </div>
+                            
                             <div class="col-md-6">
                                 {{#if isVerified}}
                                 <p>Đã xác thực</p>
@@ -187,6 +207,7 @@
         </div>
     </form>
 </div>
+
 <script src="js/previewImage.js"></script>
 <script src="js/account.js"></script>
 <script type="text/x-handlebars-template">

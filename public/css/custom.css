@@ -53,6 +53,11 @@
   font-size: large;
   background-color: white;
 }
+.category-button {
+  border: 0;
+  font-size: large;
+  background-color: white;
+}
 .current-category {
   background-color: red;
 }

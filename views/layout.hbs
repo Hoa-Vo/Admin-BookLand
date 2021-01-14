@@ -62,17 +62,26 @@
 						<li class="nav-item"><a class="nav-link" href="/users">Người dùng</a></li>
 						<li class="dropdown">
 							{{#if userToShow}}
-								<a href="/account" class="nav-link dropdown-toggle arrow"
-									data-toggle="dropdown" id="userToShow-name">{{userToShow.name}}</a>
-								<ul class="dropdown-menu">
-									<li><a href="/account">Thông tin tài khoản</a></li>
-									<li><a href="/logout">Đăng xuất</a></li>
-								</ul>
+								{{#if userToShow.super_admin}}
+									<a href="/account" class="nav-link dropdown-toggle arrow"
+										data-toggle="dropdown" id="userToShow-name">{{userToShow.name}}</a>
+									<ul class="dropdown-menu">
+										<li><a href="/account">Thông tin tài khoản</a></li>
+										<li><a href="/register">Đăng kí Admin</a></li>
+										<li><a href="/logout">Đăng xuất</a></li>
+									</ul>
+								{{else}}
+									<a href="/account" class="nav-link dropdown-toggle arrow"
+										data-toggle="dropdown" id="userToShow-name">{{userToShow.name}}</a>
+									<ul class="dropdown-menu">
+										<li><a href="/account">Thông tin tài khoản</a></li>
+										<li><a href="/logout">Đăng xuất</a></li>
+									</ul>
+								{{/if}}
 							{{else}}
-								<a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Đăng kí/Đăng
+								<a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Đăng
 									nhập</a>
 								<ul class="dropdown-menu">
-									<li><a href="/register">Đăng kí</a></li>
 									<li><a href="/login">Đăng nhập</a></li>
 								</ul>
 							{{/if}}
@@ -197,6 +206,7 @@
 		<p id="user-name" style="display: none;">{{userToShow.name}}</p>
 		<p id="user-id" style="display: none;">{{userToShow._id}}</p>
 		<p id="user-email" style="display: none;">{{userToShow.email}}</p>
+		
 	</script>
 </body>
 
