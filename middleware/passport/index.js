@@ -27,6 +27,10 @@ passport.use(new localstrategy (
       {
         return done(null,false, {message: 'Incorrect password'}); 
       }
+      else if(existUser.isLocked)
+      {
+        return done(null,false, {message: 'This account is locked by admin'});
+      }
       return done(null,existUser); 
    }
  ));
