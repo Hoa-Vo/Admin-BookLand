@@ -3,6 +3,7 @@ let maxPage = 0;
 let totalItems = 0;
 let userToShow;
 let isSingedIn = false;
+let currentCategory="users";
 const maxItemsPerPage = 6;
 
 window.onload = function () {
@@ -30,6 +31,7 @@ async function load_user_paging() {
       pageLimit: maxItemsPerPage,
       page: currentPage,
       user:userToShow,
+      category:currentCategory,
     },
     success: function (response) {
       if (true) {
@@ -50,6 +52,13 @@ async function load_user_paging() {
       alert("Lỗi tải danh sách người dùng");
     },
   });
+}
+
+function selectionChanged(choice)
+{
+  currentCategory=choice;
+  console.log(currentCategory);
+  load_user_paging();
 }
 
 function isSignedIn() {
