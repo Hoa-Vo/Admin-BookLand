@@ -38,15 +38,10 @@ exports.renderSearchAndPaging=async(req,res,next)=>
 
     if (userOrdersList!=undefined && userOrdersList!=null){
         const length=userOrdersList.length;
-        console.log(userOrdersList);
-        console.log(length);
-        
         if(userOrdersList.length!=0){
-            console.log("200");
             res.status(200).send({ordersList:userOrdersList, length:length, userToShow:userToShow});
         }
         else {
-            console.log("204");
             res.status(204).send({userToShow:userToShow, length:0});
         }
     }
