@@ -1,0 +1,30 @@
+
+<div style="margin-top: 40px"><h1>Quản lí các gian hàng</h1></div>
+
+<div class="table-responsive">
+		<table id="mytable" class="table table-bordred table-striped ">
+                <thead>
+                    <th>STT</th>
+                    <th>Tên</th>
+                    <th>Số sách trong gian</th>
+                    <th>Số sách đã bán</th>
+                    <th>Tổng doanh thu</th>
+                    <th>Xoá</th>
+                </thead>
+					<tbody id="category-list">
+                        {{#each categories}}
+                            <tr>
+                                <td>{{@index}}</td>
+                                <td>{{name}}</td>
+                                <td>{{count}}</td>
+                                <td>0</td>
+                                <td>0</td>
+                               <td><button id="\{{_id}}-del" onclick="" class="btn btn-danger btn-xs" data-title="Delete"
+						data-toggle="modal">Xoá gian hàng</button></td> 
+                            </tr>
+                            
+
+                        {{/each}}
+					</tbody>
+        </table>
+</div>

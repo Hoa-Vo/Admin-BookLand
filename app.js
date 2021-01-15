@@ -23,6 +23,7 @@ const checkOutRouter = require("./routes/checkout");
 const verifyRouter = require("./routes/verify");
 const orderRouter = require("./routes/ordersList");
 const apiRouter = require("./routes/api");
+const categoryRouter = require("./routes/category");
 require("./database/db");
 
 // view engine setup
@@ -64,6 +65,7 @@ app.use("/api/paging", pagingApiRouter);
 app.use("/account", accountRouter);
 app.use("/users", usersRouter);
 app.use("/orders", orderRouter);
+app.use("/categoryManagement", categoryRouter);
 app.get("/logout", (req, res) => {
   req.logOut();
   res.redirect("/");
