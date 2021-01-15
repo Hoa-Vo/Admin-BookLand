@@ -2417,6 +2417,11 @@ ul.cart-list > li.total > .btn:hover {
   width: 34px;
   text-align: center;
 }
+.layout-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .featured-products-box .owl-nav {
   position: absolute;

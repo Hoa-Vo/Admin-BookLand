@@ -214,7 +214,6 @@ exports.saveAvatar = async file => {
   return `${imageName}.${imageType}`;
 };
 
-
 exports.editAvatar = async userObject => {
   const userCollection = await db().collection("registeredUser");
   const id = userObject.id;
@@ -238,7 +237,6 @@ exports.editAvatar = async userObject => {
   return success;
 };
 
-
 exports.getOrderBookByID = async data => {
   let arrID = [];
   for (let i = 0; i < data.length; i++) {
@@ -261,12 +259,22 @@ exports.getOrderInvoice = async data => {
   }
   const bookCollection = await db().collection("Books");
   const books = await bookCollection.find({ _id: { $in: arrID } }).toArray();
-  let totalOrderPrice=0;
+  let totalOrderPrice = 0;
   for (let i = 0; i < books.length; i++) {
     const quantity = getQuantityAtIndex(data, books[i]._id);
-    totalOrderPrice+=quantity * books[i].basePrice;
+    totalOrderPrice += quantity * books[i].basePrice;
   }
   return totalOrderPrice;
+};
+
+exports.getbooksInIdArr = async arr => {
+  let idArr = [];
+  for (const element of arr) {
+    idArr.push(element.id);
+  }
+  const bookCollection = await db().collection("Books");
+  const books = await bookCollection.find({ _id: { $in: idArr } }).toArray();
+  return books;
 };
 
 const getQuantityAtIndex = (data, id) => {
