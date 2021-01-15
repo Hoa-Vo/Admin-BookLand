@@ -71,14 +71,18 @@ function topSaleApiCall() {
   });
 }
 function updateProductHtml(res) {
-  res
-    .sort((a, b) => {
-      return a.number - b.number;
-    })
-    .reverse();
-  const source = $("#top-product").html();
-  const template = Handlebars.compile(source);
-  $(".products").html(template(res));
+  if (res.length < 1) {
+    $(".products").html("<p>Chưa có sản phẩm nào được mua</p>");
+  } else {
+    res
+      .sort((a, b) => {
+        return a.number - b.number;
+      })
+      .reverse();
+    const source = $("#top-product").html();
+    const template = Handlebars.compile(source);
+    $(".products").html(template(res));
+  }
 }
 
 function getDataOfYear() {
