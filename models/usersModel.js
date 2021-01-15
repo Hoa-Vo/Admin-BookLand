@@ -86,7 +86,7 @@ exports.lockUserAccount=async (userID, accountID) =>
     const accountCollection =await db().collection("registeredUser");
     let success = true;
     let existsAccount = await accountCollection.findOne({ _id: ObjectID(userID) });
-
+    console.log(existsAccount);
     if (existsAccount === null || existsAccount === undefined)// nếu là id của account admin
     {
         try{
@@ -115,7 +115,7 @@ exports.lockUserAccount=async (userID, accountID) =>
             console.log(ex);
         }
     }
-    else if (existsAccount.isLocked &&success) {
+    else if (!existsAccount.isLocked &&success) {
         await accountCollection.updateOne({ _id: ObjectID(userID) }, { $set: { isLocked: true } });
         success=true;
     } 
@@ -153,7 +153,7 @@ exports.unlockUserAccount=async (userID, accountID) =>
             console.log(ex);
         }
     }
-    else if (existsAccount.isLocked === false) {
+    else if (existsAccount.isLocked === true) {
         await accountCollection.updateOne({ _id: ObjectID(userID) }, { $set: { isLocked: false } });
         success=true;
     } 
