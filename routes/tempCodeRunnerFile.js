@@ -1,0 +1,1 @@
+router.get("/search", searchSpecifiedBookController.get);
