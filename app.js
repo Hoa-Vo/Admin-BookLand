@@ -18,10 +18,10 @@ const createNewBookRouter = require("./routes/createNewBook");
 const editBookRouter = require("./routes/editBook");
 const pagingApiRouter = require("./routes/api/pagingApi");
 const usersRouter = require("./routes/users");
-const accountRouter=require("./routes/account");
+const accountRouter = require("./routes/account");
 const checkOutRouter = require("./routes/checkout");
 const verifyRouter = require("./routes/verify");
-const orderRouter=require("./routes/ordersList");
+const orderRouter = require("./routes/ordersList");
 const apiRouter = require("./routes/api");
 require("./database/db");
 
@@ -61,9 +61,9 @@ app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/bookslist", booksListRouter);
 app.use("/api/paging", pagingApiRouter);
-app.use("/account",accountRouter);
+app.use("/account", accountRouter);
 app.use("/users", usersRouter);
-app.use("/orders",orderRouter);
+app.use("/orders", orderRouter);
 app.get("/logout", (req, res) => {
   req.logOut();
   res.redirect("/");
@@ -85,8 +85,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-
-const port=3000;
-app.listen(port, ()=>{});
 
 module.exports = app;
