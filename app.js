@@ -22,10 +22,10 @@ const checkOutRouter = require("./routes/checkout");
 const verifyRouter = require("./routes/verify");
 const statisticRouter = require("./routes/statistical");
 const orderRouter = require("./routes/ordersList");
-const apiRouter = require("./routes/api");const changePasswordRouter = require("./routes/changePassword");
+const apiRouter = require("./routes/api");
+const changePasswordRouter = require("./routes/changePassword");
 const forgotPasswordRouter = require("./routes/forgotPassword");
-const aboutUsRouter=require("./routes/aboutUs");
-
+const aboutUsRouter = require("./routes/aboutUs");
 
 const changeAccountInfoRouter = require("./routes/changeAccountInfo");
 const categoryRouter = require("./routes/category");
@@ -71,7 +71,7 @@ app.use("/statistic", statisticRouter);
 app.use("/account", accountRouter);
 app.use("/users", usersRouter);
 app.use("/orders", orderRouter);
-app.use("/about-us",aboutUsRouter);
+app.use("/about-us", aboutUsRouter);
 app.use("/categoryManagement", categoryRouter);
 app.get("/logout", (req, res) => {
   req.logOut();
@@ -97,7 +97,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-
-app.listen(5000);
 
 module.exports = app;
