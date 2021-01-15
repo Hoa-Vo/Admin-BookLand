@@ -28,6 +28,7 @@ const aboutUsRouter=require("./routes/aboutUs");
 
 
 const changeAccountInfoRouter = require("./routes/changeAccountInfo");
+const categoryRouter = require("./routes/category");
 require("./database/db");
 
 // view engine setup
@@ -71,6 +72,7 @@ app.use("/account", accountRouter);
 app.use("/users", usersRouter);
 app.use("/orders", orderRouter);
 app.use("/about-us",aboutUsRouter);
+app.use("/categoryManagement", categoryRouter);
 app.get("/logout", (req, res) => {
   req.logOut();
   res.redirect("/");
