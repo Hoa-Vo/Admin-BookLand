@@ -12,25 +12,32 @@
 		<div class="col col-xs-3">
 			<h1>Bảng danh sách đơn hàng</h1>
 		</div>
-		
-		<div class="col col-xs-6">
+		<h1>Filter theo tình trạng đơn hàng</h1>
+		<div class="col col-xs-3">
 			
-			
-				<div class="search__wrapper">
-					<form id="searchForm" class="search" onsubmit="return load_user_paging();"  ></form>
-						<div class="input-group col-xs-6">
-							<input id="searchText" required value="{{userName}}" type="text" name="bookName"
-							placeholder="Tìm kiếm theo tên..."   class="form-control py-2 ">
-							<span class="input-group-append">
-								<button  class="btn btn-outline-secondary" onclick="return load_user_paging();" type="submit">
-									<i class="fa fa-search">
-									</i>
-								</button>
-							</span>
-						</div>
-					</form>
+			<div class="dropdown">
+				<button class="btn btn-md btn-primary btn-create dropdown-toggle" type="button" id="dropdownMenuButton"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Lựa chọn
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<button class="category-button btn btn-md btm-primary btn-create" type="button" 
+					onclick="selectionChanged('Tất cả')"					
+					aria-haspopup="true">Tất cả</button>
+					<button class="category-button btn btn-md btm-primary btn-create" type="button" 
+					onclick="selectionChanged('Chờ giao hàng')"
+					aria-haspopup="true">Chờ giao hàng</button>
+					<button class="category-button btn btn-md btm-primary btn-create" type="button" 
+					onclick="selectionChanged('Đang giao hàng')"
+					aria-haspopup="true">Đang giao hàng</button>
+					<button class="category-button btn btn-md btm-primary btn-create" type="button" 
+					onclick="selectionChanged('Đã giao hàng')"
+					aria-haspopup="true">Đã giao hàng</button>
+					<button class="category-button btn btn-md btm-primary btn-create" type="button" 
+					onclick="selectionChanged('Đã hủy')"
+					aria-haspopup="true">Đã hủy</button>
 				</div>
-			
+			</div>
 		</div>
 	</div>
 	<div class="row" id="info">Đang tải...</div>
@@ -55,7 +62,6 @@
 </div>
 <script id="orders-list" type="text/x-handlebars-template">
 	<thead >
-		<th><input type="checkbox" id="checkall" /></th>
 		<th>STT</th>
 		<th>ID đơn hàng</th>
 		<th>ID khách hàng</th>
@@ -63,12 +69,12 @@
         <th>Tổng tiền</th>
 		<th>Ngày đặt hàng</th>
 		<th>Trạng thái</th>
+		<th>Thay đổi</th>
 		<th>Xem</th>
 	</thead>
 	<tbody  id="users-table">
 	\{{#each this}}
 		<tr >
-			<td class="align-middle"><input type="checkbox" class="checkthis" /></td>
 			<td class="align-middle">\{{@index}}</td>
             <td class="align-middle">
 				<div class="book-info">
@@ -96,9 +102,18 @@
 				<div class="book-info"><p>\{{create_date}}</p></div>
 			</td>
             <td class="align-middle">
-				<div class="book-info"><p>\{{status}}</p></div>
+				<div class="book-info" id ="\{{_id}}-status">\{{status}}</div>
 			</td>
-			
+			<td class="align-middle">
+				<button id="\{{_id}}-to-left" onclick= "previousStatus(this.id)" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
+					data-target="#edit">
+					<i class="fas fa-arrow-left"></i>
+				</button>
+				<button id="\{{_id}}-to-right" onclick="nextStatus(this.id)" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
+					data-target="#edit">
+					<i class="fas fa-arrow-right"></i>
+				</button>
+			</td>
 			<td class="align-middle">
 				<p data-placement="top" data-toggle="tooltip" title="Xem">
 					<a href="/orders/order-detail/\{{_id}}">

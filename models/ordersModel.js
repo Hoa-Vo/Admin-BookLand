@@ -7,7 +7,7 @@ exports.getOrdersCount=async (searchText)=>
 {
     const ordersCollection= await db().collection("UserOrder");
     let count=0;
-    if(searchText!=null && searchText!=undefined && searchText!="")
+    if(searchText!=null && searchText!=undefined)
         count=await ordersCollection.find({ name: { $regex: searchText, $options: "i" }}).count();
     else
         count=await ordersCollection.find({}).count();
@@ -15,39 +15,50 @@ exports.getOrdersCount=async (searchText)=>
     return count;
 }
 
-exports.getUserOrderList = async (searchText,currentPage, pageLimit)=> {
+exports.getUserOrderList = async (category,searchText,currentPage, pageLimit)=> 
+{
   const page =parseInt(currentPage);
   const limit=parseInt(pageLimit);
   let ordersCollection = await db().collection("UserOrder");
   let userOrderList = [{}];
-  if(searchText!=null && searchText!=undefined && searchText!="")
-    {
-      userOrderList=await ordersCollection
-        .find({ name: { $regex: searchText, $options: "i" }})
-        .skip(limit * page - limit)
-        .limit(limit)
-        .sort({_id:-1})
-        .toArray();
-    }
-    else{
-      userOrderList=await ordersCollection
-        .find({})
-        .skip(limit * page - limit)
-        .limit(limit)
-        .sort({_id:-1})
-        .toArray();
-    }
-  if(userOrderList!=null && userOrderList!=undefined&& userOrderList!="")
+  let statusDetail=await getStatusByName(category);
+
+  //if(searchText!=null && searchText!=undefined &&
+  if(category!=null && category!=undefined && category!="Tất cả")
+  {
+    //userOrderList=await ordersCollection.find({status:statusDetail.status},{ name: { $regex: searchText, $options: "i" }});
+    userOrderList=await ordersCollection
+    .find({status:statusDetail.status})
+    .skip(limit * page - limit)
+    .limit(limit)
+    .sort({_id:-1})
+    .toArray();
+  }
+  else if(category=="Tất cả"){
+    userOrderList=await ordersCollection
+    .find({}).
+    skip(limit * page - limit)
+    .limit(limit)
+    .sort({_id:-1})
+    .toArray();
+  }
+
+  // else if(searchText!=null && searchText!=undefined){
+  //   userOrderList=await ordersCollection
+  //     .find({ name: { $regex: searchText, $options: "i" }});
+  // }
+
+  if(userOrderList!=null && userOrderList!=undefined)
   {
     let length=userOrderList.length;
     for (var i=0;i<length;i++)
     {
       const books=userOrderList[i].books;
-      userOrderList[i].totalCost=await bookModel.getOrderInvoice(books);
+      userOrderList[i].totalCost=userOrderList[i].totalMoney+userOrderList[i].shippingCost;
     }
   }
   return userOrderList;
-};
+}
 
 
 exports.getOrderById=async id=>
@@ -55,6 +66,7 @@ exports.getOrderById=async id=>
   let ordersCollection = await db().collection("UserOrder");
   let orderDetail=null;
   orderDetail=await ordersCollection.findOne({_id:ObjectID(id)});
+
   return orderDetail;
 }
 
@@ -65,10 +77,42 @@ exports.getOrderBookByID = async id => {
     let books = userOrder.books;
     let booksInfo = await bookModel.getOrderBookByID(books);
     return booksInfo;
-  } 
+  }
   else
   {
     const booksInfo=[{}];
     return booksInfo;
   }
 };
+
+exports.getAllOrderStatus = async ()=>
+{
+  let orderStatusCollection=await db().collection("OrderStatus");
+  let statusList=await orderStatusCollection.find({}).toArray();
+  return statusList;
+}
+
+exports.getStatusByName =async(name)=>
+{
+  let orderStatusCollection=await db().collection("OrderStatus");
+  let existsStatus=null;
+  return existsStatus
+}
+
+exports.updateOrderStatus=async(orderId,status)=>
+{
+  let userOrderCollection=await db().collection("UserOrder");
+  let existsStatus=getStatusByName(status);
+  let success=false;
+  if(existsStatus){
+    success=await userOrderCollection.updateOne({_id:ObjectID(orderId)},{ $set: { status: status } });
+  }
+  return success;
+}
+
+const getStatusByName =async(status)=>
+{
+  let orderStatusCollection=await db().collection("OrderStatus");
+  const existsStatus = await orderStatusCollection.findOne({ status: status });
+  return existsStatus
+}

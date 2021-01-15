@@ -4,6 +4,8 @@ let totalItems = 0;
 let userToShow;
 let isSingedIn = false;
 const maxItemsPerPage = 6;
+let statusArray;
+let filterSelection="Tất cả";
 
 window.onload = function () {
   let currentPage = 1;
@@ -12,6 +14,7 @@ window.onload = function () {
   const maxItemsPerPage = 10;
   $(document).ready(function () {
     load_user_orders_and_paging();
+    load_all_order_status();
   });
   
 };
@@ -20,9 +23,10 @@ async function load_user_orders_and_paging() {
   $("#searchForm").click(function (event) {
     event.preventDefault();
   });
-  //isSignedIn=isSignedIn();
+  
   const searchtext=$("#searchText").val();
-  await $.ajax({
+  let success=false;
+  $.ajax({
     url: "/orders/search-paging",
     method: "GET",
     data: {
@@ -30,44 +34,151 @@ async function load_user_orders_and_paging() {
       pageLimit: maxItemsPerPage,
       page: currentPage,
       user:userToShow,
+      filter:filterSelection,
     },
-    statusCode:
-    {
-        200: function (res)
-        {
-            if (true) {
-                totalItems = res.count;
-                setPageNumber();
-                update_orders_table(res.ordersList, res.count);
-                
-                $("#info").css("display", "none");
-            }
-            return false;
-        },
-        204:(response)=>
-        {
-            if(true)
-            {
-                $("#info").css("display", "flex");
-                $("#info").html("<p>Không tìm thấy cuốn sách nào</p>");
-                $(".table-responsive").css("display", "none");
-            }
-            return false;
-        }
+    statusCode:{
+    200:  function (res)
+      {
+        console.log(200);
+        console.log(res.ordersList);
+          if (res.ordersList) {
+              totalItems = res.length;
+              setPageNumber();
+              console.log("vô rồi nè")
+              update_orders_table(res.ordersList, res.length);
+              $("#info").css("display", "none");
+          }
+          else{
+            console.log("vô đéo được");
+            $(".table-responsive").css("display", "none");
+            $("#info").css("display", "flex");
+            $("#info").html("<p>Không tìm thấy đơn hàng nào</p>");
+            
+          }
+          success=true;
+      
+      },
+    204: function (res)
+      {
+        $(".table-responsive").css("display", "none");
+        $("#info").css("display", "flex");
+        $("#info").html("<p>Không tìm thấy đơn hàng nào</p>");
+      },
     },
     error: function () {
         alert("Lỗi tải danh sách người dùng");
     },
   });
+  return success;
+}
+
+async function selectionChanged(choice)
+{
+  filterSelection=choice;
+  console.log(filterSelection);
+  load_user_orders_and_paging(); 
+}
+
+async function load_all_order_status()
+{
+  let success=false;
+  await $.ajax({
+    url: "/orders/all-status",
+    method:"GET",
+    data:{
+      
+    },
+    statusCode:
+    {
+      202: (res)=>{
+        statusArray=res;
+        console.log(statusArray);
+        success=true;
+      },
+      204: ()=>{
+        success=false;
+      }
+    }
+  });
+  return success;
+}
+
+async function update_order_status(orderID, status)
+{
+  let success=false;
+  await $.ajax({
+    url:"/orders/update-order-status",
+    method:"POST",
+    data: 
+    {
+        orderID:orderID,
+        status:status,
+    },
+    statusCode:
+    {
+      202: (res)=>{
+        success=true;
+      },
+      204: (res)=>{
+        success=false;
+      }
+    }
+  });
+  return success;
+}
+
+async function nextStatus(id)
+{
+  let orderID=id.split('-')[0].toString();
+  const orderStatusId= `${orderID}-status`;
+  let curStatus=document.getElementById(orderStatusId).innerHTML;
+  let index= statusArray.findIndex(element=>element.status==curStatus);
+
+  let nextStatus=null;
+  if(index==statusArray.length-1){
+    nextStatus=statusArray[0].status;
+  }
+  else{
+    nextStatus=statusArray[index+1].status;
+  }
+  let check =await update_order_status(orderID,nextStatus);
+  if(check==true)
+  {
+    var text=document.getElementById(orderStatusId);
+    text.innerHTML=`${nextStatus}`;
+  }
+}
+
+async function previousStatus(id)
+{
+  let orderID=id.split('-')[0].toString();
+  const orderStatusId= `${orderID}-status`;
+  let curStatus=document.getElementById(orderStatusId).innerHTML;
+  let index= statusArray.findIndex(element=>element.status==curStatus);
+
+  let prevStatus=null;
+  if(index==0){
+    prevStatus=statusArray[statusArray.length-1].status;
+  }
+  else{
+    prevStatus=statusArray[index-1].status;
+  }
+  let check =await update_order_status(orderID,prevStatus);
+  
+  if(check)
+  {
+    var text=document.getElementById(orderStatusId);
+    text.innerHTML=`${prevStatus}`;
+  }
 }
 
 function update_orders_table(ordersList, count) {
     //update comment frame and paging;
+    $(".table-responsive").css("display", "block");
     const source = $("#orders-list").html();
     const template = Handlebars.compile(source);
     $("#mytable").html(template(ordersList));
   }
-
 function is_signed_in() {
     //lay user fomr layout.hbs
     let userId = $("#user-id").text();
