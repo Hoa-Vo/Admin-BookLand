@@ -91,25 +91,27 @@ exports.isExistsEmail = async inputEmail => {
   
 }
 
+exports.changePassword = async (userid, password) =>
+{
+  const userpasswordCollection = await db().collection("User-hashPassword");
 
-// Save image
-exports.saveImage = async file => {
-  const oldPath = file.bookImage.path;
-  let imagelink;
-  await cloudinary.uploader.upload(oldPath, (err, result) => {
-    if (err) {
-      imagelink = null;
-    } else {
-      imagelink = result.url;
-    }
-  });
-  return imagelink;
-};
+   await bcrypt.hash(password, 3, (err,hashResult) => 
+   {
+     if (err) {
+       console.log(`Hash error: ${err}}`);
+       return false;
+     }
+     console.log(hashResult);
+     userpasswordCollection.updateOne({_id: ObjectID(userid)}, 
+                                     {$set: {password: hashResult}} );
+   });
+  // await userpasswordCollection.updateOne({_id: ObjectID(userid)} , {$set : {password : password}});
 
-exports.saveImage = async (file, imageName) => {
-  var rawData = fs.readFileSync(oldPath);
-  fs.writeFileSync(imagePath, rawData);
-};
+  // await userCollection.updateOne({ _id: ObjectID(id) }, { $set: { isVerified: newVerifyStatus } });
+  return true;
+
+  
+}
 
 exports.editAvatar = async userObject => {
   const userCollection = await db().collection("adminAccount");
@@ -146,3 +148,53 @@ exports.saveAvatar = async file => {
   });
   return imagelink;
 };
+
+
+exports.changePassword = async (userid, password) =>
+{
+  const userpasswordCollection = await db().collection("User-hashPassword");
+
+   await bcrypt.hash(password, 3, (err,hashResult) => 
+   {
+     if (err) {
+       console.log(`Hash error: ${err}}`);
+       return false;
+     }
+     console.log(hashResult);
+     userpasswordCollection.updateOne({_id: ObjectID(userid)}, 
+                                     {$set: {password: hashResult}} );
+   });
+  // await userpasswordCollection.updateOne({_id: ObjectID(userid)} , {$set : {password : password}});
+
+  // await userCollection.updateOne({ _id: ObjectID(id) }, { $set: { isVerified: newVerifyStatus } });
+  return true;
+
+  
+}
+
+exports.changeAccountInfo = async accountObject => 
+{
+  const userCollection = await db().collection("adminAccount");
+  let success = true;
+  let existsUser = await userCollection.findOne({_id: ObjectID(accountObject.id)}); 
+  if(existsUser == null || existsUser == undefined)
+  {
+    console.log(`Can't find book with ID ${accountObject.id}`);
+    success = false;
+  }
+  else{
+    userCollection.updateOne({_id: ObjectID(accountObject.id)}, 
+                           {$set: {
+                             email : accountObject.email,
+                             age : accountObject.age,
+                             email : accountObject.email,
+                             email : accountObject.email,
+                             address_city : accountObject.address_city,
+                             address_district : accountObject.address_district,
+                             address : accountObject.address,
+                             avatar_image: accountObject.avatar_image
+                           }});
+    success = true;
+  }
+  return success; 
+} 
