@@ -77,6 +77,27 @@ async function UnlockAccount()
 
 function set_lock_unlock_button()
 {
+    const account_is_super_admin=$("#account-role").text();
+
+    pTagContent=$("#user-role").html();
+    const user_is_admin=pTagContent.split(">")[1].split("<")[0];
+
+    
+    //admin không được xóa super_admin và admin khác  
+    if((user_is_admin=="Admin" ||user_is_admin=="Super Admin"))
+    {
+        console.log("user_is_admin");
+        $("#btnLockAccount").css("display","none");
+        $("#btnUnlockAccount").css("display","none");
+    }
+    //super_admin được xóa admin
+    else if(account_is_super_admin=="true" && accountID!=userID)
+    {   
+        console.log("user_is_super_admin");
+
+        $("#btnLockAccount").css("display","block");
+        $("#btnUnlockAccount").css("display","none");
+    }
     //không được tài khoản của chính mình
     if(userID==accountID)
     {
@@ -84,35 +105,19 @@ function set_lock_unlock_button()
         $("#btnUnlockAccount").css("display","none");
         $("#change-avatar").css("display","block");
     }
-    else
+    else if(user_is_admin!="Admin" ||user_is_admin!="Super Admin" ||account_is_super_admin!="true" )
     {
         //mở khóa và khóa tài khoản users
-        const isLocked= $("#is-locked").text();
-        if(isLocked==true){// tài khoản đã bị khóa
+        const isLocked= document.getElementById("is-locked").innerHTML;
+        console.log(isLocked);
+        if(isLocked=="true"){// tài khoản đã bị khóa
         $("#btnLockAccount").css("display","none");
         $("#btnUnlockAccount").css("display","block");
         }
-        else if(isLocked==false)//tài khoản bình thường
+        else if(isLocked=="false")//tài khoản bình thường
         {
             $("#btnLockAccount").css("display","block");
             $("#btnUnlockAccount").css("display","none");
         }
-    }
-
-    //admin không được xóa super_admin và admin khác
-    pTagContent=$("#user-role").html();
-    const user_is_admin=pTagContent.split(">")[1].split("<")[0];
-    if((user_is_admin=="Admin" ||user_is_admin=="Super Admin"))
-    {
-        $("#btnLockAccount").css("display","none");
-        $("#btnUnlockAccount").css("display","none");
-    }
-
-    //super_admin được xóa admin
-    const account_is_super_admin=$("#account-role").text();
-    if(account_is_super_admin=="true" && accountID!=userID)
-    {   
-        $("#btnLockAccount").css("display","block");
-        $("#btnUnlockAccount").css("display","none");
     }
 }

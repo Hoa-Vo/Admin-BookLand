@@ -143,7 +143,7 @@ exports.unlockUserAccount=async (userID, accountID) =>
                 success=false;
             }
             else if (existsAccount.isLocked==true) {
-                await adminAccountCollection.updateOne({ _id: ObjectID(userID) }, { $set: { isLocked: true } });
+                await adminAccountCollection.updateOne({ _id: ObjectID(userID) }, { $set: { isLocked: false } });
                 console.log("islocked");
                 success=true;
             } 
