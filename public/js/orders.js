@@ -39,17 +39,13 @@ async function load_user_orders_and_paging() {
     statusCode:{
     200:  function (res)
       {
-        console.log(200);
-        console.log(res.ordersList);
           if (res.ordersList) {
               totalItems = res.length;
               setPageNumber();
-              console.log("vô rồi nè")
               update_orders_table(res.ordersList, res.length);
               $("#info").css("display", "none");
           }
           else{
-            console.log("vô đéo được");
             $(".table-responsive").css("display", "none");
             $("#info").css("display", "flex");
             $("#info").html("<p>Không tìm thấy đơn hàng nào</p>");
@@ -75,7 +71,6 @@ async function load_user_orders_and_paging() {
 async function selectionChanged(choice)
 {
   filterSelection=choice;
-  console.log(filterSelection);
   load_user_orders_and_paging(); 
 }
 
@@ -92,7 +87,6 @@ async function load_all_order_status()
     {
       202: (res)=>{
         statusArray=res;
-        console.log(statusArray);
         success=true;
       },
       204: ()=>{

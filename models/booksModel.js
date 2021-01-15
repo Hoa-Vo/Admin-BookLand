@@ -27,6 +27,33 @@ exports.get = async id => {
   return book;
 };
 
+exports.listForHomePage=async ()=>
+{
+  const bookCollection =await db().collection("Books");
+  const categoriesCollection = await db().collection("Category");
+  const allBook=await bookCollection.find({}).toArray();
+  const count =await bookCollection.find({}).count();
+  const result=[];
+  for(var i=0;i<6;i++)
+  {
+    var index=  Math.floor(Math.random() * count);
+    console.log(index);
+    var categoryID=allBook[index].category_id;
+    var findCategory=await categoriesCollection.findOne({_id:ObjectID(categoryID)});
+    if(findCategory){
+    allBook[index].categoryName=findCategory.name;
+    result.push(allBook[index]);
+    }
+    else
+    {
+      console.log(index);
+      console.log(i); 
+      i--;
+    }
+  }
+  return result;
+}
+
 exports.searchBook = async bookName => {
   const bookCollection = await db().collection("Books");
   //const books = await bookCollection.find({}).toArray();
@@ -53,7 +80,7 @@ exports.addBook = async bookObj => {
 
 exports.getCategoryNameById = async id => {
   const categoriesCollection = await db().collection("Category");
-  const result = categoriesCollection.findOne({ _id: ObjectID(id) });
+  const result = await categoriesCollection.findOne({ _id: ObjectID(id) });
   return result;
 };
 

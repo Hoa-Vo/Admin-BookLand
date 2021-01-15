@@ -4,6 +4,17 @@ const fs = require("fs");
 const path = require("path");
 const bcrypt = require("bcrypt");
 const { constants } = require("crypto");
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage({}) });
+const { v4: uuidv4 } = require("uuid");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+require("dotenv/config");
 
 // get user by ID
 exports.getUserById = async id => {
@@ -34,7 +45,7 @@ exports.addNewUser = async function (newUsername, plainNewPassword, newEmail) {
     age: 10,
     email: newEmail,
     role:"admin",
-    avatar_image: "notfound.jpg",
+    avatar_image: "https://res.cloudinary.com/hoavo1620/image/upload/v1610693807/q7lb7izyxsopfztremhg.jpg",
     isVerified: false,
     isLocked:false,
     super_admin:false,
@@ -79,3 +90,59 @@ exports.isExistsEmail = async inputEmail => {
   }
   
 }
+
+
+// Save image
+exports.saveImage = async file => {
+  const oldPath = file.bookImage.path;
+  let imagelink;
+  await cloudinary.uploader.upload(oldPath, (err, result) => {
+    if (err) {
+      imagelink = null;
+    } else {
+      imagelink = result.url;
+    }
+  });
+  return imagelink;
+};
+
+exports.saveImage = async (file, imageName) => {
+  var rawData = fs.readFileSync(oldPath);
+  fs.writeFileSync(imagePath, rawData);
+};
+
+exports.editAvatar = async userObject => {
+  const userCollection = await db().collection("adminAccount");
+  const id = userObject.id;
+  let success = false;
+
+  let existsUser = await userCollection.findOne({ _id: ObjectID(id) });
+  if (existsUser === null || existsUser === undefined) {
+    console.log(`Cant find user with id ${id}`);
+    success = false;
+  } else {
+    userCollection.updateOne(
+      { _id: ObjectID(id) },
+      {
+        $set: {
+          avatar_image: userObject.avatar_image,
+        },
+      }
+    );
+    success = true;
+  }
+  return success;
+};
+
+exports.saveAvatar = async file => {
+  const oldPath = file.avatarImageInput.path;
+  let imagelink;
+  await cloudinary.uploader.upload(oldPath, (err, result) => {
+    if (err) {
+      imagelink = null;
+    } else {
+      imagelink = result.url;
+    }
+  });
+  return imagelink;
+};
