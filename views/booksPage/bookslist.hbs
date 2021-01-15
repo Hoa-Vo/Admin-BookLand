@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="css/custom.css" />
-<link rel="stylesheet" href="css/searchBox.css" >
+<link rel="stylesheet" href="css/searchBox.css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <!-- Include the above in your HEAD tag -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -8,81 +8,82 @@
 <script src="js/helper.js"></script>
 <script src="js/dropdownFilter.js"></script>
 <div class="shop-box-inner">
-<div  class="container">
-	<div class="row" style="margin: 20px 0px;">
-		<div class="col col-xs-3">
-			<h1>Bảng thông tin sách</h1>
-			<a href="./createNew">
-				<button type="submit" class="btn btn-md btn-primary btn-create">
-					Thêm sách mới
-				</button>
-			</a>
-		</div>
-		<div class="col col-xs-3">
-			<h1>Filter theo loại sách</h1>
-			<div class="dropdown">
-				<button class="btn btn-md btn-primary btn-create dropdown-toggle" type="button" id="dropdownMenuButton"
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					{{currentCategory}}
-				</button>
-				<p id="category_id" style="display: none;">{{currentCategoryId}}</p>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					{{#each categories}}
-						<form action="/bookslist" method="GET">
-							<input class="category-input" type="submit" value="{{name}}" />
-							<input type="hidden" name="categoryID" value="{{_id}}" />
+	<div class="container">
+		<div class="row" style="margin: 20px 0px;">
+			<div class="col col-xs-3">
+				<h1>Bảng thông tin sách</h1>
+				<a href="./createNew">
+					<button type="submit" class="btn btn-md btn-primary btn-create">
+						Thêm sách mới
+					</button>
+				</a>
+			</div>
+			<div class="col col-xs-3">
+				<h1>Filter theo loại sách</h1>
+				<div class="dropdown">
+					<button class="btn btn-md btn-primary btn-create dropdown-toggle" type="button"
+						id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						{{currentCategory}}
+					</button>
+					<p id="category_id" style="display: none;">{{currentCategoryId}}</p>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						{{#each categories}}
+							<form action="/bookslist" method="GET">
+								<input class="category-input" type="submit" value="{{name}}" />
+								<input type="hidden" name="categoryID" value="{{_id}}" />
+							</form>
+						{{/each}}
+						<form action="/bookslist/" method="GET">
+							<input class="category-input" type="submit" value="Tất cả sách" />
+							<input type="hidden" name="categoryID" value="all" />
 						</form>
-					{{/each}}
-					<form action="/bookslist/" method="GET">
-						<input class="category-input" type="submit" value="Tất cả sách" />
-						<input type="hidden" name="categoryID" value="all" />
-					</form>
+					</div>
+				</div>
+			</div>
+			<div class="col col-xs-6">
+				<form id="searchForm" class="search" action=/bookslist/search />
+				<div class="search__wrapper">
+					<input id="searchText" required value="{{bookName}}" type="text" name="bookName"
+						placeholder="Search book here" class="search__field">
+					<button type="submit" class="fa fa-search search__icon"></button>
+				</div>
+				</form>
+			</div>
+		</div>
+		<div class="row" id="info">Đang tải...</div>
+		<div class="row">
+			<div class="table-responsive">
+				<table id="mytable" class="table table-bordred table-striped ">
+					<thead>
+						<th><input type="checkbox" id="checkall" /></th>
+						<th>STT</th>
+						<th>Hình</th>
+						<th>Tên</th>
+						<th>Giá gốc</th>
+						<th>Giá bán</th>
+						<th>Tác giả</th>
+						<th>Nhà xuất bản</th>
+						<th>Xem</th>
+						<th>Sửa</th>
+						<th>Thay đổi trạng thái</th>
+						<th>Trạng thái</th>
+					</thead>
+					<tbody id="book-list">
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="button-bar row">
+				<div class="button-bar">
+					<nav aria-label="Page navigation example">
+						<ul id="btn-list" class="pagination">
+						</ul>
+					</nav>
 				</div>
 			</div>
 		</div>
-		<div class="col col-xs-6">
-			<form id="searchForm" class="search" action=/bookslist/search />
-			<div class="search__wrapper">
-				<input id="searchText" required value="{{bookName}}" type="text" name="bookName"
-					placeholder="Search book here" class="search__field">
-				<button type="submit" class="fa fa-search search__icon"></button>
-			</div>
-			</form>
-		</div>
 	</div>
-	<div class="row" id="info">Đang tải...</div>
-	<div class="row">
-		<div class="table-responsive">
-			<table id="mytable" class="table table-bordred table-striped ">
-				<thead>
-					<th><input type="checkbox" id="checkall" /></th>
-					<th>STT</th>
-					<th>Hình</th>
-					<th>Tên</th>
-					<th>Giá</th>
-					<th>Tác giả</th>
-					<th>Nhà xuất bản</th>
-					<th>Xem</th>
-					<th>Sửa</th>
-					<th>Thay đổi trạng thái</th>
-					<th>Trạng thái</th>
-				</thead>
-				<tbody id="book-list">
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<div class="row">
-		<div class="button-bar row">
-			<div class="button-bar">
-				<nav aria-label="Page navigation example">
-					<ul id="btn-list" class="pagination">
-					</ul>
-				</nav>
-			</div>
-		</div>
-	</div>
-</div>
 </div>
 <script id="products" type="text/x-handlebars-template">
 	\{{#each this}}
@@ -96,7 +97,12 @@
 				</div>
 			</td>
 			<td>
-				<div class="book-info"><p>\{{basePrice}} VND</p></div>
+				<div class="book-info"><p>\{{basePrice}}</p></div>
+			</td>
+			<td>
+				<div class="book-info">
+					<p>\{{sellPrice}}</p>
+				</div>
 			</td>
 			<td>
 				<div class="book-info"><p>\{{author}}</p></div>

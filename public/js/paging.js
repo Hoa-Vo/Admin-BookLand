@@ -126,6 +126,16 @@ function updatePagination(btnArr) {
   $("#btn-list").html(template(content));
 }
 function updateBookList(books) {
+  for (const book of books) {
+    book.sellPrice = book.sellPrice.toLocaleString("it-IT", {
+      style: "currency",
+      currency: "VND",
+    });
+    book.basePrice = book.basePrice.toLocaleString("it-IT", {
+      style: "currency",
+      currency: "VND",
+    });
+  }
   const source = $("#products").html();
   const template = Handlebars.compile(source);
   $("#book-list").html(template(books));
