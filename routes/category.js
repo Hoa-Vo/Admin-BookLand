@@ -5,5 +5,6 @@ const categoryController = require("../controllers/categoryPageController");
 
 
 router.get("/", categoryController.render); 
+router.post("/", categoryController.addCategory); 
 
 module.exports = router; 

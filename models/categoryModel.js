@@ -20,7 +20,7 @@ exports.checkExistsCategoryID = async (categoryId) =>
 exports.checkExistCategoryName = async (categoryName) => 
 {
     const categoriesCollection = await db().collection("Category"); 
-    const found = await categoryCollection.findOne({name: categoryName}); 
+    const found = await categoriesCollection.findOne({name: categoryName}); 
 
     if(found!= null && found!= undefined)
     {
@@ -32,7 +32,7 @@ exports.checkExistCategoryName = async (categoryName) =>
 exports.addNewCategory = async (categoryName) => 
 {
     const categoriesCollection = await db().collection("Category"); 
-    const newInserted = await categoriesCollection.inserOne({
+    const newInserted = await categoriesCollection.insertOne({
         name: categoryName
     });
 
