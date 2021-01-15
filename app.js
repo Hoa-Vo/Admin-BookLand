@@ -24,6 +24,7 @@ const verifyRouter = require("./routes/verify");
 const orderRouter = require("./routes/ordersList");
 const apiRouter = require("./routes/api");const changePasswordRouter = require("./routes/changePassword");
 const forgotPasswordRouter = require("./routes/forgotPassword");
+const aboutUsRouter=require("./routes/aboutUs");
 
 
 const changeAccountInfoRouter = require("./routes/changeAccountInfo");
@@ -41,6 +42,7 @@ app.use("/bookslist/edit/:id", express.static(path.join(__dirname, "public")));
 app.use("/users/profile/:id", express.static(path.join(__dirname, "public")));
 app.use("/account", express.static(path.join(__dirname, "public")));
 app.use("/orders/order-detail", express.static(path.join(__dirname, "public")));
+app.use("/about-us", express.static(path.join(__dirname, "public")));
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -68,6 +70,7 @@ app.use("/api/paging", pagingApiRouter);
 app.use("/account", accountRouter);
 app.use("/users", usersRouter);
 app.use("/orders", orderRouter);
+app.use("/about-us",aboutUsRouter);
 app.get("/logout", (req, res) => {
   req.logOut();
   res.redirect("/");
