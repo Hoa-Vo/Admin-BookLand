@@ -1,0 +1,23 @@
+.container-chart {
+  margin: 30px 50px;
+}
+.product-image {
+  width: 150px;
+  margin-right: 20px;
+}
+.product {
+  display: flex;
+  padding: 10px;
+}
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+.number-sale {
+  color: black;
+  font-weight: bold;
+}
+.products {
+  height: 620px;
+  overflow: auto;
+}

@@ -1,0 +1,44 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<link rel="stylesheet" href="css/statistic.css">
+<div class="container-chart">
+    <div class="row">
+        <div class="col-7">
+            <div class="combobox">
+                <div class="title-left">
+                    <h3>Doanh thu theo tháng</h3>
+                </div>
+                <select onchange="getDataOfYear()" class="wide w-100 combo-box" id="year">
+                    <option value="" selected>Năm {{selectedYear}}</option>
+                    {{#each allYear}}
+                        <option value="">{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <canvas id="myChart" width="400" height="400">
+            </canvas>
+        </div>
+        <div class="col">
+            <div class="top-ten">
+                <div class="title-left">
+                    <h3>Top sản phẩm bán chạy</h3>
+                </div>
+                <div class="products">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="js/chart.js"></script>
+<script id="top-product" type="text/x-handlebars-template">
+    \{{#each this}}
+    <div class="product">
+        <img class="product-image"
+            src="\{{image_link}}">
+        <div class="product-info">
+            <p class="product-title"><span class="number-sale">Tên sách: </span>\{{title}}</p>
+            <p><span class="number-sale">Số lượng bán được: </span>\{{number}}</p>
+        </div>
+    </div>
+    \{{/each}}
+</script>
