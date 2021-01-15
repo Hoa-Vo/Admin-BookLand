@@ -43,7 +43,7 @@ async function load_user_paging() {
       else
       {
         $("#info").css("display", "flex");
-        $("#info").html("<p>Không tìm thấy cuốn sách nào</p>");
+        $("#info").html("<p>Không tìm thấy người dùng nào</p>");
         $(".table-responsive").css("display", "none");
       }
       return false;

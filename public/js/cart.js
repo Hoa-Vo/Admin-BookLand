@@ -57,10 +57,14 @@ function updateTotalPrice(books)
     for (let i = 0; i < books.length; i++) {
       totalMoney += parseInt(books[i].totalPrice);
     }
+    let shippingFee=document.getElementById(`shipping-fee`).innerHTML;
+    
+    $("#total-money-pay").html(`${totalMoney} VND`);
+
+    totalMoney+=parseInt(shippingFee);
     $("#order-Detail-create-date").html(`${totalMoney} VND`);
     $("#total-money").html(`<strong>Tổng cộng: </strong>${totalMoney} VND`);
     $("#checkout-money").html(`${totalMoney} VND`);
-    $("#total-money-pay").html(`${totalMoney} VND`);
   }
   catch(err)
   {
