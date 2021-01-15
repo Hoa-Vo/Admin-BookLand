@@ -22,7 +22,11 @@ const accountRouter = require("./routes/account");
 const checkOutRouter = require("./routes/checkout");
 const verifyRouter = require("./routes/verify");
 const orderRouter = require("./routes/ordersList");
-const apiRouter = require("./routes/api");
+const apiRouter = require("./routes/api");const changePasswordRouter = require("./routes/changePassword");
+const forgotPasswordRouter = require("./routes/forgotPassword");
+
+
+const changeAccountInfoRouter = require("./routes/changeAccountInfo");
 require("./database/db");
 
 // view engine setup
@@ -70,6 +74,9 @@ app.get("/logout", (req, res) => {
 });
 app.use("/verify", verifyRouter);
 app.use("/api", apiRouter);
+app.use("/forgotPassword", forgotPasswordRouter);
+app.use("/changepassword", changePasswordRouter);
+app.use("/changeAccountInfo", changeAccountInfoRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -85,5 +92,7 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
+app.listen(5000);
 
 module.exports = app;
