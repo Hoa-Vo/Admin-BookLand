@@ -1,8 +1,8 @@
 const usersModel = require("../models/usersModel");
 const accountModel = require("../models/accountModel");
-
 const formidable = require("formidable");
 const booksListModel=require("../models/booksModel");
+
 exports.get = async (req, res, next) => {
   let userToShow=null;
   if(req.user)
@@ -72,7 +72,7 @@ exports.editUserAvatar = async (req, res, next) => {
     if (err || files.avatarImageInput.type !== "image/jpeg") {
       res.status(204).send("error!");
     } else {
-      booksListModel
+      accountModel
         .saveAvatar(files)
         .then(imageName => {
           let toChangeAvatarUser = {
@@ -82,7 +82,10 @@ exports.editUserAvatar = async (req, res, next) => {
           return toChangeAvatarUser;
         })
         .then(toChangeAvatarUser => {
-          booksListModel.editAvatar(toChangeAvatarUser).then(result => {
+          console.log(toChangeAvatarUser.avatar_image);
+          console.log(toChangeAvatarUser.id);
+          accountModel
+          .editAvatar(toChangeAvatarUser).then(result => {
             if (result === true) {
               res.status(202).redirect("/account");
             } else {
@@ -93,6 +96,7 @@ exports.editUserAvatar = async (req, res, next) => {
     }
   });
 };
+
 
 exports.lockAccount=async(req,res,next)=>
 {
