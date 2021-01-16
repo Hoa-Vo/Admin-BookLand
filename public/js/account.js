@@ -82,34 +82,21 @@ function set_lock_unlock_button()
     pTagContent=$("#user-role").html();
     const user_is_admin=pTagContent.split(">")[1].split("<")[0];
 
-    
-    //admin không được xóa super_admin và admin khác  
-    if((user_is_admin=="Admin" ||user_is_admin=="Super Admin"))
-    {
-        console.log("user_is_admin");
-        $("#btnLockAccount").css("display","none");
-        $("#btnUnlockAccount").css("display","none");
-    }
-    //super_admin được xóa admin
-    else if(account_is_super_admin=="true" && accountID!=userID)
-    {   
-        console.log("user_is_super_admin");
-
-        $("#btnLockAccount").css("display","block");
-        $("#btnUnlockAccount").css("display","none");
-    }
     //không được tài khoản của chính mình
     if(userID==accountID)
     {
         $("#btnLockAccount").css("display","none");
         $("#btnUnlockAccount").css("display","none");
         $("#change-avatar").css("display","block");
+        return 1;
     }
-    else if(user_is_admin!="Admin" ||user_is_admin!="Super Admin" ||account_is_super_admin!="true" )
-    {
+    if(account_is_super_admin=="true" )
+    {   
+        console.log("account_is_super_admin");
+        $("#btnLockAccount").css("display","block");
+        $("#btnUnlockAccount").css("display","block");
         //mở khóa và khóa tài khoản users
         const isLocked= document.getElementById("is-locked").innerHTML;
-        console.log(isLocked);
         if(isLocked=="true"){// tài khoản đã bị khóa
         $("#btnLockAccount").css("display","none");
         $("#btnUnlockAccount").css("display","block");
@@ -119,5 +106,31 @@ function set_lock_unlock_button()
             $("#btnLockAccount").css("display","block");
             $("#btnUnlockAccount").css("display","none");
         }
+        if(user_is_admin=="Super Admin")
+        {
+            $("#btnLockAccount").css("display","none");
+            $("#btnUnlockAccount").css("display","none");
+        }
+    }
+    //admin không được xóa super_admin và admin khác  
+    else if((user_is_admin!="Admin" &&user_is_admin!="Super Admin"))
+    {
+         //mở khóa và khóa tài khoản users
+         const isLocked= document.getElementById("is-locked").innerHTML;
+         if(isLocked=="true"){// tài khoản đã bị khóa
+         $("#btnLockAccount").css("display","none");
+         $("#btnUnlockAccount").css("display","block");
+         }
+         else if(isLocked=="false")//tài khoản bình thường
+         {
+             $("#btnLockAccount").css("display","block");
+             $("#btnUnlockAccount").css("display","none");
+         }
+    }
+    else
+    {
+        $("#btnLockAccount").css("display","none");
+        $("#btnUnlockAccount").css("display","none");
+    
     }
 }
