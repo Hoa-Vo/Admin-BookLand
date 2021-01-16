@@ -43,31 +43,28 @@ function checkIsExistInCart(books, id) {
   return null;
 }
 $(document).ready(() => {
-  const orderId=$("#order-id").text();
+  const orderId = $("#order-id").text();
   console.log(orderId);
   updateCartApi(orderId);
-  
+
   //getUserCartInfoApi(orderId);
 });
 
-function updateTotalPrice(books)
-{
-  try{
+function updateTotalPrice(books) {
+  try {
     let totalMoney = 0;
     for (let i = 0; i < books.length; i++) {
       totalMoney += parseInt(books[i].totalPrice);
     }
-    let shippingFee=document.getElementById(`shipping-fee`).innerHTML;
-    
+    let shippingFee = document.getElementById(`shipping-fee`).innerHTML;
+
     $("#total-money-pay").html(`${totalMoney} VND`);
 
-    totalMoney+=parseInt(shippingFee);
+    totalMoney += parseInt(shippingFee);
     $("#order-Detail-create-date").html(`${totalMoney} VND`);
     $("#total-money").html(`<strong>Tổng cộng: </strong>${totalMoney} VND`);
     $("#checkout-money").html(`${totalMoney} VND`);
-  }
-  catch(err)
-  {
+  } catch (err) {
     console.log(err);
   }
 }
@@ -78,7 +75,6 @@ function updateCartHtml(books) {
     const source = $("#cart").html();
     const template = Handlebars.compile(source);
     $("#cart-list").html(template(books));
-    
   } catch (err) {
     console.log(err);
   }
